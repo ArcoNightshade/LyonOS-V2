@@ -289,8 +289,9 @@
   '';
   };
 
-  home.file."Pictures/Wallpapers/helldiv.jpg".source = ../../wallpapers/helldiv.jpg;
+  # home.file."Pictures/Wallpapers/helldiv.jpg".source = ../../wallpapers/helldiv.jpg;
 
+  home.file."Pictures/Wallpapers".source = ../../wallpapers;
   };
 
   # Enable desktop environment
