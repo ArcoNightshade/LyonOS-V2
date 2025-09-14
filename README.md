@@ -1,16 +1,5 @@
 ## LyonOS V2
-### New and improved!
-
-Structure
-```
-┌─ modules
-│  ├─ apps
-│  ├─ commands
-│  └─ desktop
-└─ profile
-    ├─ home
-    └─ workstation
-```
+#### New and *improved!*
 
 ---
 ### Setup
