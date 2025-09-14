@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   imports = [
-    # Import any modules or take them out
     ../../modules/desktop/niri.nix
     ../../modules/desktop/gnome.nix
     ../../modules/apps/software.nix
