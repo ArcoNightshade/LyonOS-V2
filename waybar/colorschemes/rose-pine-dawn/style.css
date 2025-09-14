@@ -1,0 +1,5 @@
+/* owlphin color scheme based on Noctis VSCode theme (https://github.com/liviuschera/noctis/) */
+
+@import url("../rose-pine-common/rose-pine-colors/rose-pine-dawn.css");
+@import url("../rose-pine-common/style.css");
+@import url("app.css");

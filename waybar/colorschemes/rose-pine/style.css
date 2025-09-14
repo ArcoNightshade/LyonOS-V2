@@ -1,0 +1,5 @@
+/* owlphin color scheme based on Rosé Pine color scheme (https://rosepinetheme.com) */
+
+@import url("../rose-pine-common/rose-pine-colors/rose-pine.css");
+@import url("../rose-pine-common/style.css");
+@import url("app.css");

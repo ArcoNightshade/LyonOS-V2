@@ -1,0 +1,36 @@
+{
+  "modules-left": [
+    "group/leftside"
+  ],
+  "modules-center": [
+    "sway/window"
+  ],
+  "layer": "top",
+  "include": [
+    "~/.config/waybar/config-common",
+    "~/.config/waybar/config-common-tiling"
+  ],
+  "sway/window": {
+    "format": " {} ",
+    "max-length": 100,
+    "tooltip": false
+  },
+  "sway/workspaces": {
+    "format": "{icon}",
+    "sort-by-number": true
+  },
+  "sway/mode": {
+    "format": "{}",
+    "max-length": 50
+  },
+  "group/leftside": {
+    "orientation": "horizontal",
+    "modules": [
+    "sway/workspaces",
+    "sway/mode",
+    "mpris#prefix",
+    "mpris#suffix"
+    ]
+  },
+  "_vim_": "# vim: set filetype=json:"
+}

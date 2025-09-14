@@ -1,0 +1,36 @@
+{
+  "modules-right": [
+    "group/rightside"
+  ],
+  "group/rightside": {
+    "orientation": "horizontal",
+    "modules": [
+      "group/stats",
+      "group/traygroup"
+    ]
+  },
+  "group/stats": {
+    "orientation": "horizontal",
+    "modules": [
+      "network#statusprefix",
+      "group/network",
+      "custom/cpuprefix",
+      "cpu",
+      "custom/memoryprefix",
+      "memory",
+      "battery#prefix",
+      "battery#suffix",
+      "custom/timeprefix",
+      "group/datetime"
+    ]
+  },
+  "group/traygroup": {
+    "orientation": "horizontal",
+    "modules": [
+      "privacy",
+      "wireplumber#prefix",
+      "tray"
+    ]
+  },
+  "_vim_": "# vim: set filetype=json:"
+}

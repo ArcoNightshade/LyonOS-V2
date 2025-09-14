@@ -1,0 +1,175 @@
+/* Don't edit this file, modify styleoptions.css if you want to change color */
+
+* {
+  border: none;
+  font-family: MonaspiceNe Nerd Font Propo;
+  font-size: 14px;
+}
+
+#leftside,
+#window,
+#clock.centered,
+#rightside {
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.58);
+}
+
+window#waybar.solo #window,
+window#waybar.solo #leftside,
+window#waybar.solo #clock.centered,
+window#waybar.solo #rightside,
+window#waybar.empty #window {
+  box-shadow: initial;
+}
+
+#leftside,
+#centerbottom {
+  background-color: @bg-color;
+  border-radius: 16px;
+  margin: 8px 0px 8px 8px;
+}
+
+#custom-poweroff,
+#custom-sleep,
+#custom-exit {
+  font-size: 30px;
+  padding: 0px 6px 0px 6px;
+}
+
+#user label {
+  font-size: 18px;
+  padding: 0px 6px 0px 6px;
+}
+
+#rightside {
+  background-color: @bg-color;
+  border-radius: 16px;
+  margin: 8px 8px 8px 0px;
+  color: @fg-color;
+}
+
+#traygroup {
+  background-color: @tray-bg-color;
+  border-radius: 16px;
+  color: @tray-fg-color;
+  padding-right: 8px;
+  margin: 4px;
+}
+
+#stats {
+  padding-left: 8px;
+}
+
+#custom-timeprefix,
+#custom-cpuprefix,
+#custom-dateprefix,
+#custom-memoryprefix,
+#network.statusprefix,
+#mpris.prefix,
+#network.dnlprefix,
+#network.uplprefix,
+#clock.date,
+#battery.prefix {
+  padding-right: 4px;
+}
+
+window {
+  /* background: @fg-color; */
+  background: rgba(30, 30, 46, 0);
+  padding: 0px 8px 0px 8px;
+  color: @fg-color;
+}
+
+#window,
+#clock.centered {
+  border-radius: 16px;
+  /*background: @bg-color;*/
+  background: @bg-color;
+  padding: 2px 8px 2px 8px;
+  font-weight: Bold;
+  margin: 8px 8px 8px 8px;
+}
+
+#tray {
+  padding: 0px 0px 0px 8px;
+}
+
+#privacy {
+  padding: 0px 0px 0px 8px;
+}
+
+#custom-cc {
+  padding: 0px 8px 0px 4px;
+}
+
+window#waybar.solo {
+  transition: background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+window#waybar {
+  transition: background 0.2s ease-in;
+}
+
+window#waybar.empty,
+window#waybar.empty #window {
+  transition: none;
+}
+
+window#waybar #window {
+  transition: background 0.1s ease-in;
+}
+
+window#waybar.solo #window {
+  transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+
+
+window#waybar.empty #window,
+window#waybar.solo #window {
+  background: transparent;
+}
+
+window#waybar.floating,
+window#waybar.tiled {
+  background: transparent;
+}
+
+#workspaces,
+#tags,
+#custom-app {
+  all: initial;
+  padding: 4px;
+  color: @fg-color;
+}
+
+#mode {
+  border-radius: 16px;
+  padding: 0px 8px;
+  margin-left: 4px;
+}
+
+#custom-app {
+  font-family: FantasqueSansM Nerd Font;
+  font-size: 14px;
+}
+
+#workspaces button,
+#tags button {
+  all: initial;
+  padding: 0px 8px 0px 8px;
+  background: transparent;
+  border-radius: 12px;
+  color: @fg-color;
+}
+
+#workspaces button.focused,
+#workspaces button.active,
+#workspaces button.visible,
+#tags button.focused,
+#tags button.active,
+#tags button.visible {
+  background: @selected-bg-color;
+  color: @selected-fg-color;
+}
+
+@import url("styleoptions.css");

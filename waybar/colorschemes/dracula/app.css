@@ -1,0 +1,15 @@
+@import url("../shared/app.css");
+
+/* Firefox & LibreWolf */
+window#waybar.firefox, window#waybar.librewolf, window#waybar.LibreWolf, window#waybar.firedragon{
+        background: #282a36;
+}
+
+/* window#waybar.gimp{
+	background: #484848;
+	color: #ffffff;
+} */
+
+window#waybar.chromium-browser-chromium, window#waybar.chrome, window#waybar.chromium{
+        background: #17181e;
+}
