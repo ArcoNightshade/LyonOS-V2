@@ -1,5 +1,9 @@
 #### LyonOS V2 - New and *improved!*
 
+LyonOS is my personal, opinionated Linux distribution based on NixOS. This repository contains all the configuration files to replicate my complete desktop environment (ricing) on any machine.
+
+If you appreciate the philosophy of a declarative and reproducible operating system and enjoy a minimalist and highly customized desktop, LyonOS might be a good starting point for you.
+
 ---
 ### Setup
 ```
