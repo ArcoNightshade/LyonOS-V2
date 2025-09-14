@@ -8,6 +8,7 @@
     ../../modules/apps/waybar.nix
     ../../modules/apps/fuzzel.nix
     ../../modules/apps/foot.nix
+    ../../modules/apps/fastfetch.nix
     ../../modules/commands/software.nix
     ../../modules/commands/shell.nix
     ../../modules/Development/nix.nix
