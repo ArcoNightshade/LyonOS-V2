@@ -1,5 +1,4 @@
-## LyonOS V2
-#### New and *improved!*
+#### LyonOS V2 - New and *improved!*
 
 ---
 ### Setup
