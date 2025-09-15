@@ -289,7 +289,7 @@
   '';
   };
 
-  home.file."Pictures/Wallpapers".source = ../../wallpapers;
+  home.file."Pictures/Wallpapers".source = ./wallpapers;
   };
 
   # Enable desktop environment

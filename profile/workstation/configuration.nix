@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ../../modules/desktop/niri.nix
+    ../../modules/desktop/niri/default.nix
     ../../modules/desktop/gnome.nix
     ../../modules/apps/software.nix
     ../../modules/apps/zed.nix
