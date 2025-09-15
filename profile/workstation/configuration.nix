@@ -16,15 +16,6 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    mako
-    swww
-    niri
-    waybar
-    fuzzel
-    foot
-    xwayland-satellite
-  ];
   environment.sessionVariables.NIX_AUTO_RUN = "1";
   # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 

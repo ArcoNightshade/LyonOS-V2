@@ -1,5 +1,14 @@
 { pkgs, settings, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    mako
+    swww
+    niri
+    waybar
+    fuzzel
+    foot
+    xwayland-satellite
+  ];
 
   home-manager.users.${settings.account.name} = {
     xdg.configFile."niri/config.kdl".text = ''
