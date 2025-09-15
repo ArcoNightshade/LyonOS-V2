@@ -285,7 +285,7 @@
 
     ${pkgs.swww}/bin/swww-daemon &
 
-    ${pkgs.swww}/bin/swww img ~/Pictures/Wallpapers/helldiv.jpg
+    ${pkgs.swww}/bin/swww img ~/Pictures/Wallpapers/black-hole.png
   '';
   };
 
