@@ -1,6 +1,7 @@
 {
-  description = "Starter NixOS flake.";
+  description = "EPIC Nix flake";
   inputs = {
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-25.05";
@@ -23,6 +24,9 @@
     nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system settings; };
       modules = [
+        inputs.chaotic.nixosModules.nyx-cache
+        inputs.chaotic.nixosModules.nyx-overlay
+        inputs.chaotic.nixosModules.nyx-registry
         inputs.home-manager.nixosModules.home-manager
         ./profile/workstation/hardware.nix
         ./profile/workstation/configuration.nix
@@ -32,6 +36,9 @@
     nixosConfigurations.home = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system settings; };
       modules = [
+        inputs.chaotic.nixosModules.nyx-cache
+        inputs.chaotic.nixosModules.nyx-overlay
+        inputs.chaotic.nixosModules.nyx-registry
         inputs.home-manager.nixosModules.home-manager
         ./profile/home/hardware.nix
         ./profile/home/configuration.nix

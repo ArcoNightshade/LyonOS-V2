@@ -26,7 +26,11 @@
     xwayland-satellite
   ];
   environment.sessionVariables.NIX_AUTO_RUN = "1";
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  services.scx.enable = true;
+
   fonts.packages = [ pkgs.nerd-fonts.fira-code pkgs.nerd-fonts.symbols-only ];
   boot.kernelParams = [
     "splash"
