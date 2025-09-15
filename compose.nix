@@ -5,6 +5,23 @@
   system.stateVersion = "25.05";
   time.timeZone = settings.timeZone;
 
+  environment.sessionVariables.NIX_AUTO_RUN = "1";
+  environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
+
+  nix.settings.sandbox = true;
+  nix.extraOptions = "experimental-features = nix-command flakes";
+  nix.settings.download-buffer-size = 3221225472; # 256MB buffer to avoid "buffer full" warnings
+  nix.settings.warn-dirty = false;
+  nix.settings.trusted-users = [ "@wheel" ];
+  nix.settings.allowed-users = [ "${settings.account.name}" ];
+
+  nix.settings.auto-optimise-store = true;
+  nix.optimise.automatic = true;
+  nix.optimise.dates = [ "weekly" ];
+  nix.gc.automatic = true;
+  nix.gc.dates = "weekly";
+  nix.gc.options = "--delete-older-than 30d";
+
   home-manager.users.${settings.account.name} = {
     programs.home-manager.enable = true;
     home.stateVersion = "25.05";
@@ -15,9 +32,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     hashedPassword = "$6$DaUWNF5nAbYNHkEF$sWF6rjw2Pw3E8gKfeqA/HvqUIoGoR431cqUsU0cMEo.I4YcbjtOzSW3Dj2Lk6NhDCcOiA9aJJW9LtvqKtmeDy1";
   };
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.settings.trusted-users = [ "@wheel" ];
 
   hardware.graphics.enable = true;
 
