@@ -30,7 +30,7 @@ nano ~/.flake/compose.nix
 ```
 Rebuild & reboot to be safe, or just switch.
 ```
-sudo nixos-rebuild boot --flake ~/.flake#home
+sudo nixos-rebuild boot --flake ~/.flake#workstation
 ```
 ---
 
@@ -45,7 +45,7 @@ nixos-rebuild has a few options:
 * test    : switches to the new generation but does not save it to the boot menu
 
 ```
-sudo nixos-rebuild switch --flake ~/.flake#home --rollback
+sudo nixos-rebuild switch --flake ~/.flake#workstation --rollback
 ```
 Rolls back to the previous generation.
 
@@ -55,7 +55,7 @@ sudo nix-collect-garbage
 Deletes all previous generations so you don't run out of space.
 
 ```
-sudo nix flake update --flake ~/.flake#home
+sudo nix flake update --flake ~/.flake#workstation
 ```
 Update system.
 
