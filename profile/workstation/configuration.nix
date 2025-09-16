@@ -13,6 +13,7 @@
     ../../modules/Development/nix.nix
     ../../modules/Development/rs.nix
     ../../modules/Development/haskell.nix
+    ../../modules/lyonos/branding.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
