@@ -4,6 +4,7 @@
     enable = true;
     settings = {
       color_theme = "horizon";
-      theme_background = false;    };
+      theme_background = false;
+    };
   };
 }
