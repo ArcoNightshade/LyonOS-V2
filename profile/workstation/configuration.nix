@@ -3,6 +3,7 @@
     ../../modules/desktop/niri.nix
     ../../modules/desktop/gnome.nix
     ../../modules/apps/software.nix
+    ../../modules/experimental/cutting-edge.nix
     ../../modules/apps/zed.nix
     ../../modules/apps/waybar.nix
     ../../modules/apps/fuzzel.nix

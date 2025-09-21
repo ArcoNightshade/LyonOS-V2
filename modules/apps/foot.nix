@@ -5,6 +5,7 @@ home-manager.users.${settings.account.name} = {
     # -*- conf -*-
 
     # shell=$SHELL (if set, otherwise user's default shell from /etc/passwd)
+    shell=fish
     # term=foot (or xterm-256color if built with -Dterminfo=disabled)
     # login-shell=no
 
