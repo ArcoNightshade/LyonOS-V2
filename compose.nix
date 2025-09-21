@@ -1,7 +1,7 @@
 # Make sure to add this to your bookmarks: https://search.nixos.org/options
 # This is where common options are set so you don't have to repeat yourself across files
 { lib, settings,  ... }: {
-  networking.hostName = "nixos";
+  networking.hostName = "LyonOS-RTS";
   system.stateVersion = "25.05";
   time.timeZone = settings.timeZone;
 
