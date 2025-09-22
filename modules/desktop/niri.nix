@@ -8,7 +8,10 @@
     fuzzel
     foot
     xwayland-satellite
+    swaylock
   ];
+
+  security.pam.services.swaylock.enable = true;
 
   home-manager.users.${settings.account.name} = {
     xdg.configFile."niri/config.kdl".text = ''
@@ -135,7 +138,8 @@
         XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
         XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
         XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-        Mod+O repeat=false { toggle-overview; }
+        XF86MonBrightnessUp  allow-when-locked=true { spawn "brightnessctl" "set" "+2%"; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "-2%"; }        Mod+O repeat=false { toggle-overview; }
 
         Mod+Q { close-window; }
 
