@@ -132,7 +132,7 @@
         Mod+Shift+Slash { show-hotkey-overlay; }
         Mod+Return hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
         Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-        Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock" "--screenshots" "--clock" "--indicator" "--effect-blur 7x5"; }
+        Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock" "--screenshots" "--clock" "--indicator" "--effect-blur 7x5" "--inside-color 00000088"; }
         // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
         XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
         XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
