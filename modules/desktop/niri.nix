@@ -8,7 +8,7 @@
     fuzzel
     foot
     xwayland-satellite
-    swaylock
+    swaylock-effects
   ];
 
   security.pam.services.swaylock.enable = true;
@@ -132,7 +132,7 @@
         Mod+Shift+Slash { show-hotkey-overlay; }
         Mod+Return hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
         Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-        Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock" "-i" "swaylock -i Pictures/Wallpapers/3d-model.jpg"; }
+        Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
         // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
         XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
         XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
