@@ -128,6 +128,10 @@
         clip-to-geometry true
     }
 
+    switch-events {
+        lid-close { spawn "swaylock" "--screenshots" "--clock" "--indicator" "--effect-blur 7x5" "--inside-color 00000088"; }
+    }
+
     binds {
         Mod+Shift+Slash { show-hotkey-overlay; }
         Mod+Return hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
