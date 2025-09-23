@@ -5,6 +5,8 @@
     ../../modules/apps/software.nix
     ../../modules/experimental/cutting-edge.nix
     ../../modules/apps/nushell.nix
+    ../../modules/commands/nh.nix
+    ../../modules/apps/btop.nix
     ../../modules/apps/zed.nix
     ../../modules/apps/waybar.nix
     ../../modules/apps/fuzzel.nix
