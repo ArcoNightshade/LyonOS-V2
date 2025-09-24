@@ -292,7 +292,7 @@
       executable = true;
     text = ''
     #!/usr/bin/env bash
-    xwayland-satellite &
+    ${pkgs.xwayland-satellite}/bin/xwayland-satellite &
   '';
   };
 

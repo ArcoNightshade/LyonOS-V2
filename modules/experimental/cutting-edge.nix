@@ -4,4 +4,10 @@
     uutils-coreutils-noprefix
     nushell
   ];
+
+  programs.zoxide = {
+    enable = true;
+    enableNushellIntegration = true;
+    options = [ "--cmd cd" ];
+  };
 }
