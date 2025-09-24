@@ -24,6 +24,7 @@ home-manager.users.${settings.account.name} = {
     $env.config.show_banner = false
     $env.PATH = ($env.PATH | append '~/.cargo/env')
     alias nixrebuild = sudo nixos-rebuild switch --flake /home/${settings.account.name}/.lyonos#workstation
+    source ~/.zoxide.nu
   '';
   };
 }
