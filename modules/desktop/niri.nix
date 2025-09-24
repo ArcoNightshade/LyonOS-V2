@@ -9,6 +9,7 @@
     foot
     xwayland-satellite
     swaylock-effects
+    krita
   ];
 
   security.pam.services.swaylock.enable = true;
