@@ -58,6 +58,7 @@
   networking.wireless.enable = lib.mkForce false;
   networking.networkmanager.enable = true;
   # services.openssh.enable = true;
+  services.cups.enable = true;
 
   /* UEFI */
   boot.loader.systemd-boot.enable = true;
