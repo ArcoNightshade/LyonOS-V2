@@ -9,7 +9,7 @@
   };
   outputs = inputs@{ ... }: let
     settings = {
-      timeZone = "America/New_York";        # Set your timezone
+      timeZone = "America/New_York";       # Set your timezone
       account.name = "lyon";               # Set your name
     };
     system = "x86_64-linux";               # System architecture
@@ -21,6 +21,7 @@
     nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system settings; };
       modules = [
+        /* some stuff for chaotic nyx */
         inputs.chaotic.nixosModules.nyx-cache
         inputs.chaotic.nixosModules.nyx-overlay
         inputs.chaotic.nixosModules.nyx-registry
@@ -30,15 +31,16 @@
         ./compose.nix
       ];
     };
-    nixosConfigurations.home = inputs.nixpkgs.lib.nixosSystem {
+    nixosConfigurations.iso = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system settings; };
       modules = [
+        /* some stuff for chaotic nyx */
         inputs.chaotic.nixosModules.nyx-cache
         inputs.chaotic.nixosModules.nyx-overlay
         inputs.chaotic.nixosModules.nyx-registry
         inputs.home-manager.nixosModules.home-manager
-        ./profile/home/hardware.nix
-        ./profile/home/configuration.nix
+        ./profile/iso/hardware.nix
+        ./profile/iso/configuration.nix
         ./compose.nix
       ];
     };
