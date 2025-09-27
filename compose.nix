@@ -1,11 +1,12 @@
 { lib, settings,  ... }: {
-  networking.hostName = "LyonOS-RTS";
-  system.stateVersion = "25.05";
+  networking.hostName = "LyonOS-RTS"; # Change it if you want
+  system.stateVersion = "25.05"; # Don't change this
   time.timeZone = settings.timeZone;
 
   environment.sessionVariables.NIX_AUTO_RUN = "1";
   environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
 
+  /* Nix settings */
   nix.settings.sandbox = true;
   nix.extraOptions = "experimental-features = nix-command flakes";
   nix.settings.download-buffer-size = 3221225472; # 256MB buffer to avoid "buffer full" warnings
@@ -13,27 +14,32 @@
   nix.settings.trusted-users = [ "@wheel" ];
   nix.settings.allowed-users = [ "${settings.account.name}" ];
 
+  /* Settings for optimisation of /nix/store */
   nix.settings.auto-optimise-store = true;
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "weekly" ];
 
+  /* Setting up home-manager */
   home-manager.users.${settings.account.name} = {
     programs.home-manager.enable = true;
     home.stateVersion = "25.05";
   };
 
+  /* Setting up the user (Change your password, mine wont work for you! */
   users.users.${settings.account.name} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
     hashedPassword = "$6$DaUWNF5nAbYNHkEF$sWF6rjw2Pw3E8gKfeqA/HvqUIoGoR431cqUsU0cMEo.I4YcbjtOzSW3Dj2Lk6NhDCcOiA9aJJW9LtvqKtmeDy1"; # Give it a guess, heh.
   };
 
+  /* Enabling graphical stuff for GAMING >:3 */
   hardware.graphics.enable = true;
 
   /* Compressed memory */
   services.zram-generator.enable = true;
   services.zram-generator.settings.zram0.zram-size = "ram * 2";
 
+  /* Power services */
   services = {
     power-profiles-daemon.enable = true;
     upower = {

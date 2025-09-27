@@ -23,14 +23,14 @@
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest; # Magic xanmod (Found better performance with it)
   # boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  #
+
   services.scx.enable = true; # Better scheduler
 
   fonts.packages = [ pkgs.nerd-fonts.fira-code pkgs.nerd-fonts.symbols-only ]; # Installing some nerd fonts and symbols
 
   hardware.cpu.intel.updateMicrocode = true; # Enabling intel microcode, if you use AMD, change it.
 
-# Below is a ton of kernel parameters and module stuff, modify at your own risk (Litle to none lol).
+  /* Below is a ton of kernel parameters and module stuff, modify at your own risk (Litle to none lol). */
   boot.kernelParams = [
     "splash"
     "quiet"
