@@ -3,7 +3,7 @@
     ../../modules/desktop/niri.nix # Installing and configuring niri and wallpaper directory
     ../../modules/desktop/gnome.nix # Installing gnome DE
     ../../modules/apps/software.nix # Installing all of the graphical software
-    ../../modules/experimental/cutting-edge.nix # Cutting edge stuff here (Nushell and zoxide)
+    ../../modules/experimental/cutting-edge.nix # Cutting edge stuff here (Nushell, uutils, and zoxide)
     ../../modules/apps/nushell.nix # Configuring nushell
     ../../modules/commands/nh.nix # Installing nh (Nix helper)
     ../../modules/apps/zed.nix # Installing and configuring zed editor

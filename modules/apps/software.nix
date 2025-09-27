@@ -3,17 +3,16 @@
     unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
 in{
   home-manager.users.${settings.account.name}.home.packages = with pkgs; [
-    # Terminal
-    foot alacritty
+    # Terminal(s)
+    foot
 
     # Music/Creative
     tidal-hifi obsidian
 
-    # Web stuff
+    # Internet tools
     firefox vesktop
 
     # Niri (And related)
-    fuzzel waybar xwayland-satellite gammastep
+    fuzzel waybar xwayland-satellite
   ];
-  # Check https://search.nixos.org/packages to see which packages are available
 }
