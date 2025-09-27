@@ -1,5 +1,3 @@
- # Make sure to add this to your bookmarks: https://search.nixos.org/options
-# This is where common options are set so you don't have to repeat yourself across files
 { lib, settings,  ... }: {
   networking.hostName = "LyonOS-RTS";
   system.stateVersion = "25.05";
@@ -47,18 +45,13 @@
     };
   };
 
-    powerManagement.cpuFreqGovernor = "balance_power";
-
+  powerManagement.cpuFreqGovernor = "balance_power";
 
   /* Network */
   networking.firewall.enable = true;
   networking.wireless.enable = lib.mkForce false;
   networking.networkmanager.enable = true;
   # services.openssh.enable = true;
-
-  /* BIOS */
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.useOSProber = true;
 
   /* UEFI */
   boot.loader.systemd-boot.enable = true;
