@@ -40,6 +40,20 @@
   services.zram-generator.enable = true;
   services.zram-generator.settings.zram0.zram-size = "ram * 2";
 
+  services = {
+    power-profiles-daemon.enable = true;
+    upower = {
+      enable = true;
+      percentageLow = 20;
+      percentageCritical = 5;
+      percentageAction = 3;
+      criticalPowerAction = "PowerOff";
+    };
+  };
+
+    powerManagement.cpuFreqGovernor = "power-saver";
+
+
   /* Network */
   networking.firewall.enable = true;
   networking.wireless.enable = lib.mkForce false;
