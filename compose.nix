@@ -1,4 +1,4 @@
-# Make sure to add this to your bookmarks: https://search.nixos.org/options
+ # Make sure to add this to your bookmarks: https://search.nixos.org/options
 # This is where common options are set so you don't have to repeat yourself across files
 { lib, settings,  ... }: {
   networking.hostName = "LyonOS-RTS";
@@ -47,11 +47,11 @@
       percentageLow = 20;
       percentageCritical = 5;
       percentageAction = 3;
-      criticalPowerAction = "PowerOff";
+      criticalPowerAction = "Hibernate";
     };
   };
 
-    powerManagement.cpuFreqGovernor = "power-saver";
+    powerManagement.cpuFreqGovernor = "balance_power";
 
 
   /* Network */
