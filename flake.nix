@@ -1,5 +1,5 @@
 {
-  description = "EPIC Nix flake";
+  description = "LyonOS Official Nix flake";
   inputs = {
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
