@@ -1,35 +1,36 @@
 { pkgs, ... }: {
   imports = [
-    ../../modules/desktop/niri.nix
-    ../../modules/desktop/gnome.nix
-    ../../modules/apps/software.nix
-    ../../modules/experimental/cutting-edge.nix
-    ../../modules/apps/nushell.nix
-    ../../modules/commands/nh.nix
-    ../../modules/apps/zed.nix
-    ../../modules/apps/waybar.nix
-    ../../modules/apps/fuzzel.nix
-    ../../modules/apps/foot.nix
-    ../../modules/apps/fastfetch.nix
-    ../../modules/commands/software.nix
-    ../../modules/commands/shell.nix
-    ../../modules/Development/nix.nix
-    ../../modules/Development/rs.nix
-    ../../modules/Development/haskell.nix
-#    ../../modules/lyonos/branding.nix
+    ../../modules/desktop/niri.nix # Installing and configuring niri and wallpaper directory
+    ../../modules/desktop/gnome.nix # Installing gnome DE
+    ../../modules/apps/software.nix # Installing all of the graphical software
+    ../../modules/experimental/cutting-edge.nix # Cutting edge stuff here (Nushell and zoxide)
+    ../../modules/apps/nushell.nix # Configuring nushell
+    ../../modules/commands/nh.nix # Installing nh (Nix helper)
+    ../../modules/apps/zed.nix # Installing and configuring zed editor
+    ../../modules/apps/waybar.nix # Defining the waybar configuration
+    ../../modules/apps/fuzzel.nix # Defining the fuzzel configuration
+    ../../modules/apps/foot.nix # Defining the foot configuration
+    ../../modules/apps/fastfetch.nix # Defining the fastfetch configuration
+    ../../modules/commands/software.nix # Installing all of the non-graphical software
+    ../../modules/commands/shell.nix # Aliases for bash; currently deprecated due to usage of nushell
+    ../../modules/Development/nix.nix # Nixd and nil
+    ../../modules/Development/rs.nix # Rustup
+    ../../modules/Development/haskell.nix # GHC and HLS stuff
+#    ../../modules/lyonos/branding.nix # Removed as of 2025-09-26 because of logo problems with fastfetch.
   ];
 
   nixpkgs.config.allowUnfree = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest; # Magic xanmod (Found better performance with it)
   # boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  services.scx.enable = true;
+  #
+  services.scx.enable = true; # Better scheduler
 
-  fonts.packages = [ pkgs.nerd-fonts.fira-code pkgs.nerd-fonts.symbols-only ];
+  fonts.packages = [ pkgs.nerd-fonts.fira-code pkgs.nerd-fonts.symbols-only ]; # Installing some nerd fonts and symbols
 
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.intel.updateMicrocode = true; # Enabling intel microcode, if you use AMD, change it.
 
+# Below is a ton of kernel parameters and module stuff, modify at your own risk (Litle to none lol).
   boot.kernelParams = [
     "splash"
     "quiet"
@@ -61,9 +62,10 @@
     "preempt=full"
     "uinput"
   ];
+
   boot.blacklistedKernelModules = [
     "nouveau"   # Conflicts with Nvidia driver
-    "nvidia"    # It's booty
+    "nvidia"    # It's bad
 
 # Obscure network protocols.
     "af_802154" # IEEE 802.15.4

@@ -25,7 +25,7 @@
   users.users.${settings.account.name} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
-    hashedPassword = "$6$DaUWNF5nAbYNHkEF$sWF6rjw2Pw3E8gKfeqA/HvqUIoGoR431cqUsU0cMEo.I4YcbjtOzSW3Dj2Lk6NhDCcOiA9aJJW9LtvqKtmeDy1";
+    hashedPassword = "$6$DaUWNF5nAbYNHkEF$sWF6rjw2Pw3E8gKfeqA/HvqUIoGoR431cqUsU0cMEo.I4YcbjtOzSW3Dj2Lk6NhDCcOiA9aJJW9LtvqKtmeDy1"; # Give it a guess, heh.
   };
 
   hardware.graphics.enable = true;
@@ -45,7 +45,7 @@
     };
   };
 
-  powerManagement.cpuFreqGovernor = "balance_power";
+  powerManagement.cpuFreqGovernor = "balance_power"; # Change this depending on your needs
 
   /* Network */
   networking.firewall.enable = true;

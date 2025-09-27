@@ -11,9 +11,6 @@
     settings = {
       timeZone = "America/New_York";        # Set your timezone
       account.name = "lyon";               # Set your name
-      /* We can set variables here and use them elsewhere. */
-      /* Example: */
-      /* myVar = "value"; */
     };
     system = "x86_64-linux";               # System architecture
   in {

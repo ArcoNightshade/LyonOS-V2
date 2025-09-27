@@ -8,8 +8,6 @@ in{
     # Terminal
     foot alacritty
 
-    # Dev tools
-
     # Music/Creative
     tidal-hifi obsidian
 
