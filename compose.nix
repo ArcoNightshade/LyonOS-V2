@@ -18,10 +18,6 @@
   nix.settings.auto-optimise-store = true;
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "weekly" ];
-  # nix.gc.automatic = true;
-  # nix.gc.dates = "weekly";
-  # nix.gc.options = "--delete-older-than 30d";
-  # nh tooling replaces these
 
   home-manager.users.${settings.account.name} = {
     programs.home-manager.enable = true;
