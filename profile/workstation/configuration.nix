@@ -5,7 +5,6 @@
     ../../modules/apps/software.nix # Installing all of the graphical software
     ../../modules/experimental/cutting-edge.nix # Cutting edge stuff here (Nushell, uutils, and zoxide)
     ../../modules/apps/nushell.nix # Configuring nushell
-    ../../modules/commands/nh.nix # Installing nh (Nix helper)
     ../../modules/apps/zed.nix # Installing and configuring zed editor
     ../../modules/apps/waybar.nix # Defining the waybar configuration
     ../../modules/apps/fuzzel.nix # Defining the fuzzel configuration
