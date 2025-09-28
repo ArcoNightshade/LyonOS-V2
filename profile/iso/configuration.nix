@@ -26,7 +26,6 @@
   fonts.packages = [ pkgs.nerd-fonts.fira-code pkgs.nerd-fonts.symbols-only ]; # Installing some nerd fonts and symbols
 
   hardware.cpu.intel.updateMicrocode = true; # Enabling intel microcode
-  hardware.cpu.amd.updateMicrocode = true; # Enabling AMD microcode
 
   /* Below is a ton of kernel parameters and module stuff, modify at your own risk (Litle to none lol). */
   boot.kernelParams = [
