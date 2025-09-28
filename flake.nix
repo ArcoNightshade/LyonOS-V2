@@ -14,10 +14,6 @@
     };
     system = "x86_64-linux";               # System architecture
   in {
-
-    # Having more than one configuration allows you to use the same
-    # flake on multiple devices or for different purposes
-
     nixosConfigurations.workstation = inputs.nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs system settings; };
       modules = [
@@ -41,6 +37,19 @@
         inputs.home-manager.nixosModules.home-manager
         ./profile/iso/hardware.nix
         ./profile/iso/configuration.nix
+        ./compose.nix
+      ];
+    };
+    nixosConfigurations.desktop = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs system settings; };
+      modules = [
+        /* some stuff for chaotic nyx */
+        inputs.chaotic.nixosModules.nyx-cache
+        inputs.chaotic.nixosModules.nyx-overlay
+        inputs.chaotic.nixosModules.nyx-registry
+        inputs.home-manager.nixosModules.home-manager
+        ./profile/desktop/hardware.nix
+        ./profile/desktop/configuration.nix
         ./compose.nix
       ];
     };

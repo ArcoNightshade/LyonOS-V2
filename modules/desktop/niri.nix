@@ -14,6 +14,10 @@
 
   security.pam.services.swaylock.enable = true;
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
   home-manager.users.${settings.account.name} = {
     xdg.configFile."niri/config.kdl".text = ''
     // LyonOS Niri Configuration
