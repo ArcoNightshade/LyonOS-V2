@@ -1,7 +1,4 @@
-{ inputs, pkgs, settings, ... }: let
-    # Bring in the unstable channel
-    unstable = import inputs.nixpkgs-unstable { inherit (pkgs) system; };
-in{
+{ pkgs, settings, ... }: {
   home-manager.users.${settings.account.name}.home.packages = with pkgs; [
     # Terminal(s)
     foot
