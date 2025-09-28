@@ -5,9 +5,6 @@
     ../../modules/experimental/cutting-edge.nix # Cutting edge stuff here (Nushell, uutils, and zoxide)
     ../../modules/apps/nushell.nix # Configuring nushell
     ../../modules/apps/zed.nix # Installing and configuring zed editor
-    ../../modules/apps/waybar.nix # Defining the waybar configuration
-    ../../modules/apps/fuzzel.nix # Defining the fuzzel configuration
-    ../../modules/apps/foot.nix # Defining the foot configuration
     ../../modules/apps/fastfetch.nix # Defining the fastfetch configuration
     ../../modules/commands/software.nix # Installing all of the non-graphical software
     ../../modules/Development/nix.nix # Nixd and nil  ];
