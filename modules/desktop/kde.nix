@@ -26,7 +26,6 @@
   services.blueman.enable = true;
 
   boot.plymouth.enable = true;
-  boot.loader.timeout = 1;
 
   home-manager.users.${settings.account.name} = {
     home.file."Pictures/Wallpapers".source = ./wallpapers;
