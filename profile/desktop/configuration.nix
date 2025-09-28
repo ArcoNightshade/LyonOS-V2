@@ -12,14 +12,11 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest; # Magic xanmod (Found better performance with it)
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest; # Magic xanmod (Found better performance with it)
+  # boot.kernelPackages = pkgs.linuxPackages_cachyos;
   services.scx.enable = true; # Better scheduler
 
   fonts.packages = [ pkgs.nerd-fonts.fira-code pkgs.nerd-fonts.symbols-only ]; # Installing some nerd fonts and symbols
-
-  hardware.cpu.intel.updateMicrocode = true; # Enabling intel microcode
-  hardware.cpu.amd.updateMicrocode = true; # Enabling AMD microcode
 
   /* Below is a ton of kernel parameters and module stuff, modify at your own risk (Litle to none lol). */
   boot.kernelParams = [

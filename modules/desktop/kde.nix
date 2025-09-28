@@ -17,10 +17,6 @@
   services.printing.enable = true;
   environment.systemPackages = [ pkgs.cups-filters ];
 
-  services.avahi.enable = true;
-  services.avahi.nssmdns4 = true;
-  services.avahi.openFirewall = true;
-
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
