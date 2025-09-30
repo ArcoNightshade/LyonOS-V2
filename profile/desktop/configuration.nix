@@ -4,10 +4,10 @@
     ../../modules/apps/pc-apps.nix # Installing all of the graphical software (PC variant)
     ../../modules/experimental/cutting-edge.nix # Cutting edge stuff here (Nushell, uutils, and zoxide)
     ../../modules/apps/nushell.nix # Configuring nushell
-    ../../modules/apps/zed.nix # Installing and configuring zed editor
+    ../../modules/apps/zed-desktop.nix # Installing and configuring zed editor
     ../../modules/apps/fastfetch.nix # Defining the fastfetch configuration
     ../../modules/commands/software.nix # Installing all of the non-graphical software
-    ../../modules/Development/nix.nix # Nixd and nil  ];
+    ../../modules/Development/nix.nix # Nixd and nil for nix dev ];
   ];
 
   nixpkgs.config.allowUnfree = true;
