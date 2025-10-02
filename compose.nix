@@ -34,6 +34,11 @@
 
   /* Enabling graphical stuff for GAMING >:3 */
   hardware.graphics.enable = true;
+  hardware.opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+  };
 
   /* Compressed memory */
   services.zram-generator.enable = true;
