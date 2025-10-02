@@ -33,7 +33,7 @@
   };
 
   /* Enabling graphical stuff for GAMING >:3 */
-  hardware.graphics.enable = {
+  hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
