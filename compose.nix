@@ -33,10 +33,9 @@
   };
 
   /* Enabling graphical stuff for GAMING >:3 */
-  hardware.graphics.enable = true;
-  hardware.opengl = {
-      enable = true;
-      driSupport32Bit = true;
+  hardware.graphics.enable = {
+    enable = true;
+    enable32Bit = true;
   };
 
   /* Compressed memory */
