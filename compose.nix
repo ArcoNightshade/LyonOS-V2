@@ -56,6 +56,7 @@
 
   powerManagement.cpuFreqGovernor = "powersave"; # Change this depending on your needs
   services.thermald.enable = true;
+  services.tlp.enable = false;
 
   /* Network */
   networking.firewall.enable = true;
