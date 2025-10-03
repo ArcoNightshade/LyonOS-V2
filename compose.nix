@@ -1,5 +1,5 @@
 { lib, settings,  ... }: {
-  networking.hostName = "LyonOS-RTS"; # Change it if you want
+  networking.hostName = "RTS"; # Change it if you want
   system.stateVersion = "25.05"; # Don't change this
   time.timeZone = settings.timeZone;
 
@@ -25,14 +25,14 @@
     home.stateVersion = "25.05";
   };
 
-  /* Setting up the user (Change your password, mine wont work for you! */
+  /* Setting up the user (Change your password, mine wont work for you!) */
   users.users.${settings.account.name} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
-    hashedPassword = "$6$DaUWNF5nAbYNHkEF$sWF6rjw2Pw3E8gKfeqA/HvqUIoGoR431cqUsU0cMEo.I4YcbjtOzSW3Dj2Lk6NhDCcOiA9aJJW9LtvqKtmeDy1"; # Give it a guess, heh.
+    hashedPassword = "$6$DaUWNF5nAbYNHkEF$sWF6rjw2Pw3E8gKfeqA/HvqUIoGoR431cqUsU0cMEo.I4YcbjtOzSW3Dj2Lk6NhDCcOiA9aJJW9LtvqKtmeDy1"; # Give it a guess, if you want.
   };
 
-  /* Enabling graphical stuff for GAMING >:3 */
+  /* Enabling graphical stuff for steam */
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -63,7 +63,7 @@
   networking.wireless.enable = lib.mkForce false;
   networking.networkmanager.enable = true;
   # services.openssh.enable = true;
-  services.printing.enable = true;
+  # services.printing.enable = true;
 
   /* UEFI */
   boot.loader.systemd-boot.enable = true;
