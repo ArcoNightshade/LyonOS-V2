@@ -54,7 +54,8 @@
     };
   };
 
-  powerManagement.cpuFreqGovernor = "balance_power"; # Change this depending on your needs
+  powerManagement.cpuFreqGovernor = "powersave"; # Change this depending on your needs
+  services.thermald.enable = true;
 
   /* Network */
   networking.firewall.enable = true;
