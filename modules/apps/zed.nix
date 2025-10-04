@@ -77,7 +77,7 @@ in{
             theme = {
                 mode = "system";
                 light = "One Light";
-                dark = "Catppuccin Mocha";
+                dark = "Catppuccin Espresso (blur) [heavy]";
             };
             show_whitespaces = "all";
             ui_font_size = 16;
