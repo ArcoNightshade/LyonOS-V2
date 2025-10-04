@@ -66,7 +66,7 @@
   # services.printing.enable = true;
 
   /* UEFI */
-  # boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
   boot.loader.limine = {
     enable = true;
     efiSupport = true;
