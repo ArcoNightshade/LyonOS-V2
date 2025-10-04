@@ -1,4 +1,4 @@
-{ lib, settings,  ... }: {
+{ pkgs, lib, settings,  ... }: {
   networking.hostName = "RTS"; # Change it if you want
   system.stateVersion = "25.05"; # Don't change this
   time.timeZone = settings.timeZone;
@@ -66,9 +66,13 @@
   # services.printing.enable = true;
 
   /* UEFI */
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
+  boot.loader.limine = {
+    enable = true;
+    efiSupport = true;
+  };
   boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.loader.grub.efiSupport = true;
+  # boot.loader.grub.efiSupport = true;
 
   /* Uncomment your drive type */
   boot.loader.grub.device =
