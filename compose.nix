@@ -70,6 +70,13 @@
   boot.loader.limine = {
     enable = true;
     efiSupport = true;
+    style = {
+      wallpapers = [
+        ./modules/desktop/wallpapers/redbull.jpg
+      ];
+    interface.resolution = "1920x1080";
+    interface.branding = "LyonOS";
+    };
   };
   boot.loader.efi.efiSysMountPoint = "/boot";
   # boot.loader.grub.efiSupport = true;
