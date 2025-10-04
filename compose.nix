@@ -72,7 +72,7 @@
     efiSupport = true;
     style = {
       wallpapers = [
-        ./modules/desktop/wallpapers/redbull.jpg
+        ./modules/desktop/wallpapers/redbull-max.png
       ];
     interface.resolution = "1920x1080";
     interface.branding = "LyonOS";
