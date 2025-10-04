@@ -69,7 +69,7 @@
 
         focus-ring {
             width 2
-            active-color "#505da1"
+            active-color "#d505da1"
             inactive-color "#730000"
         }
 
@@ -310,7 +310,7 @@
 
     ${pkgs.swww}/bin/swww-daemon &
 
-    ${pkgs.swww}/bin/swww img ~/Pictures/Wallpapers/black-hole.png
+    ${pkgs.swww}/bin/swww img ~/Pictures/Wallpapers/redbull.jpg
   '';
   };
 
