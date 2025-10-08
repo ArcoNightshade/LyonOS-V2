@@ -1,5 +1,5 @@
-{ pkgs, lib, settings,  ... }: {
-  networking.hostName = "RTS"; # Change it if you want
+{ lib, settings,  ... }: {
+  networking.hostName = "RTS"; # Change the hostname if you want
   system.stateVersion = "25.05"; # Don't change this
   time.timeZone = settings.timeZone;
 
@@ -40,7 +40,7 @@
 
   /* Compressed memory */
   services.zram-generator.enable = true;
-  services.zram-generator.settings.zram0.zram-size = "ram * 2";
+  services.zram-generator.settings.zram0.zram-size = "ram * 2"; # Might wanna change this to "ram" if you are having issues
 
   /* Power services */
   services = {
@@ -72,10 +72,10 @@
     efiSupport = true;
     style = {
       wallpapers = [
-        ./modules/desktop/wallpapers/redbull-max.png
+        ./modules/desktop/wallpapers/redbull-max.png # Go ahead and change this to a different picture
       ];
     interface.resolution = "1920x1080";
-    interface.branding = "LyonOS";
+    interface.branding = "Welcome to LyonOS!";
     };
   };
   boot.loader.efi.efiSysMountPoint = "/boot";

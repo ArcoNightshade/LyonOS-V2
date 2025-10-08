@@ -8,8 +8,6 @@
     fuzzel
     foot
     xwayland-satellite
-    swaylock-effects
-    krita
   ];
 
   xdg.portal.enable = true;
