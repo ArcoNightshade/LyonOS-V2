@@ -7,7 +7,7 @@
     tidal-hifi obsidian
 
     # Internet tools
-    firefox vesktop
+    firefox vesktop dino
 
     # Niri (And related)
     fuzzel waybar xwayland-satellite
