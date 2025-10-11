@@ -58,7 +58,7 @@ home-manager.users.${settings.account.name} = {
     # uri-characters=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+="'()[]
 
     [cursor]
-    # style=block
+    # style=beam
     # color=<inverse foreground/background>
     # blink=no
     # beam-thickness=1.5
@@ -69,7 +69,7 @@ home-manager.users.${settings.account.name} = {
     # alternate-scroll-mode=yes
 
     [colors]
-    alpha=0.8  # Adjust alpha to change transparency level
+    alpha=0.4  # Adjust alpha to change transparency level
     foreground=e3e3ea  # ColorForeground
     background=1c1824  # ColorBackground
 
