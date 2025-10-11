@@ -58,7 +58,7 @@ home-manager.users.${settings.account.name} = {
     # uri-characters=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+="'()[]
 
     [cursor]
-    # style=beam
+    # style=underline
     # color=<inverse foreground/background>
     # blink=no
     # beam-thickness=1.5
