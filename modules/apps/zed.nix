@@ -6,7 +6,7 @@ in{
         package = unstable.zed-editor;
 
         ## This populates the userSettings "auto_install_extensions"
-        extensions = ["nix" "toml" "elixir" "make" "haskell" "assembly" ];
+        extensions = ["nix" "toml" "elixir" "make" "haskell" "assembly" "latex" ];
 
         ## everything inside of these brackets are Zed options.
         userSettings = {
