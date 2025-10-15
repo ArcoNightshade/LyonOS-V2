@@ -7,7 +7,7 @@ in{
   home-manager.users.${settings.account.name}.home.packages = with pkgs; [
 
     # Dev tools
-    git lazygit neovim gcc gh gh-contribs
+    git lazygit neovim gcc gh gh-contribs texlab
 
     # Creative/Music
     cmus
