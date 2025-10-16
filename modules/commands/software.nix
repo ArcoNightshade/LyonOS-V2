@@ -7,7 +7,7 @@ in{
   home-manager.users.${settings.account.name}.home.packages = with pkgs; [
 
     # Dev tools
-    git lazygit neovim gcc gh gh-contribs texlab
+    git lazygit neovim gcc texlab
 
     # Creative/Music
     cmus
@@ -17,6 +17,9 @@ in{
 
     # Niri (And related)
     mako swww oreo-cursors-plus
+
+    # Github
+    gh gh-contribs
   ];
   # Please see https://search.nixos.org/packages to see which packages are available
 }
