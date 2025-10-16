@@ -1,2 +1,2 @@
-*.css linguist-language
-*.sh linguist-language
+*.css -linguist-detectable
+*.sh -linguist-detectable
