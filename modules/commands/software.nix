@@ -13,7 +13,7 @@ in{
     cmus
 
     # Utils
-    fastfetch onefetch hyfetch brightnessctl flatpak zip unzip btop senpai ranger gnumake
+    fastfetch onefetch hyfetch brightnessctl flatpak zip unzip btop senpai ranger gnumake nh
 
     # Niri (And related)
     mako swww oreo-cursors-plus
