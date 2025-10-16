@@ -26,6 +26,7 @@ home-manager.users.${settings.account.name} = {
     alias nixrebuild = sudo nixos-rebuild switch --flake /home/${settings.account.name}/.lyonos#workstation
     source ~/.zoxide.nu
     alias cd = z
+    $env.NH_OS_FLAKE = /home/lyon/.lyonos
   '';
   };
 }
