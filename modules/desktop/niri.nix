@@ -10,10 +10,30 @@
     xwayland-satellite
   ];
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-gnome ];
+  # Enable desktop environment
+  services.xserver.enable = true;
+  services.displayManager.ly.enable = true;
+  programs.niri.enable = true;
+  programs.xwayland.enable = true;
 
-  security.pam.services.swaylock.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-gnome ];
+  };
+
+  # Audio
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    audio.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    jack.enable = true;
+    wireplumber.enable = true;
+  };
+
+  # Boot screen, take out to see systemd logs
+  boot.plymouth.enable = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -297,6 +317,7 @@
       executable = true;
     text = ''
     #!/usr/bin/env bash
+
     ${pkgs.xwayland-satellite}/bin/xwayland-satellite &
   '';
   };
@@ -313,25 +334,6 @@
   };
 
     home.file."Pictures/Wallpapers".source = ./wallpapers;
+
   };
-
-  # Enable desktop environment
-  services.xserver.enable = true;
-  services.displayManager.ly.enable = true;
-  programs.niri.enable = true;
-  programs.xwayland.enable = true;
-
-  # Audio
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    jack.enable = true;
-    wireplumber.enable = true;
-  };
-
-  # Boot screen, take out to see systemd logs
-  boot.plymouth.enable = true;
 }
