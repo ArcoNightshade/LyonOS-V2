@@ -131,7 +131,7 @@
     screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
     cursor {
-	xcursor-theme "oreo_black_cursors"
+	xcursor-theme "oreo_red_cursors"
 	xcursor-size 24
     }
 
