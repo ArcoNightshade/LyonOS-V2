@@ -6,6 +6,8 @@
     # Music/Creative
     tidal-hifi obsidian
 
+    # Game dev
+    godot ldtk
     # Internet tools
     firefox vesktop dino
 
