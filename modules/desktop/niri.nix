@@ -316,8 +316,8 @@
   };
 
   # Enable desktop environment
-  services.displayManager.ly.enable = true;
   services.xserver.enable = true;
+  services.xserver.displayManager.ly.enable = true;
   programs.niri.enable = true;
   programs.xwayland.enable = true;
 

@@ -38,6 +38,13 @@
     enable32Bit = true;
   };
 
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/{settings.account.name}/.lyonos"; # sets NH_OS_FLAKE variable for you
+  };
+
   /* Compressed memory */
   services.zram-generator.enable = true;
   services.zram-generator.settings.zram0.zram-size = "ram * 2"; # Might wanna change this to "ram" if you are having issues
