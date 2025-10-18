@@ -14,35 +14,30 @@ git clone https://github.com/ArcoNightshade/LyonOS-V2 ~/.lyonos && rm -rf ~/.lyo
 cp /etc/nixos/hardware-configuration.nix ~/.lyonos/profile/home/hardware.nix
 ```
 
-```
+
 Set your username.
 ```
 nano ~/.lyonos/flake.nix
 ```
 
-```
-Specify your drive type (scroll to the bottom)
-```
 
+Specify your drive type (scroll to the bottom)
 ```
 nano ~/.lyonos/compose.nix
 ```
 
-```
-Set your password, use this to get the hash
-```
 
+Set your password, use this to get the hash
 ```
 mkpasswd -m sha-512 <password>
 ```
 
-```
-Place the output in `hashedPassword = "";`
-```
 
+Place the output in `hashedPassword = "";`
 ```
 nano ~/.lyonos/compose.nix
 ``````
+
 Rebuild & reboot to be safe, or just switch.
 ```
 sudo nixos-rebuild boot --flake ~/.lyonos#workstation
