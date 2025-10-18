@@ -7,36 +7,51 @@ If you appreciate the philosophy of a declarative and reproducible operating sys
 ---
 ### Setup
 ```
-git clone https://github.com/ArcoNightshade/LyonOS-V2 ~/.flake && rm -rf ~/.flake/.git
+git clone https://github.com/ArcoNightshade/LyonOS-V2 ~/.lyonos && rm -rf ~/.lyonos/.git
+```
 
-cp /etc/nixos/hardware-configuration.nix ~/.flake/profile/home/hardware.nix
-cp /etc/nixos/hardware-configuration.nix ~/.flake/profile/workstation/hardware.nix
+```
+cp /etc/nixos/hardware-configuration.nix ~/.lyonos/profile/home/hardware.nix
+```
+
 ```
 Set your username.
 ```
-nano ~/.flake/flake.nix
+nano ~/.lyonos/flake.nix
+```
+
 ```
 Specify your drive type (scroll to the bottom)
 ```
-nano ~/.flake/compose.nix
+
+```
+nano ~/.lyonos/compose.nix
+```
+
 ```
 Set your password, use this to get the hash
 ```
+
+```
 mkpasswd -m sha-512 <password>
+```
+
 ```
 Place the output in `hashedPassword = "";`
 ```
-nano ~/.flake/compose.nix
+
 ```
+nano ~/.lyonos/compose.nix
+``````
 Rebuild & reboot to be safe, or just switch.
 ```
-sudo nixos-rebuild boot --flake ~/.flake#workstation
+sudo nixos-rebuild boot --flake ~/.lyonos#workstation
 ```
 ---
 
 ### Commands
 ```
-sudo nixos-rebuild switch --flake ~/.flake#workstation
+sudo nixos-rebuild switch --flake ~/.lyonos#workstation
 ```
 nixos-rebuild has a few options:
 * switch  : switches to the new configuration immediately
@@ -45,7 +60,7 @@ nixos-rebuild has a few options:
 * test    : switches to the new generation but does not save it to the boot menu
 
 ```
-sudo nixos-rebuild switch --flake ~/.flake#workstation --rollback
+sudo nixos-rebuild switch --flake ~/.lyonos#workstation --rollback
 ```
 Rolls back to the previous generation.
 
@@ -55,7 +70,7 @@ sudo nix-collect-garbage
 Deletes all previous generations so you don't run out of space.
 
 ```
-sudo nix flake update --flake ~/.flake#workstation
+sudo nix flake update --flake ~/.lyonos#workstation
 ```
 Update system.
 
