@@ -1,3 +1,8 @@
+
+![GitHub last commit](https://img.shields.io/github/last-commit/LyonOS-V2/shell?style=for-the-badge&labelColor=101418&color=9ccbfb)
+![GitHub Repo stars](https://img.shields.io/github/stars/LyonOS-V2/shell?style=for-the-badge&labelColor=101418&color=b9c8da)
+![GitHub repo size](https://img.shields.io/github/repo-size/LyonOS-V2/shell?style=for-the-badge&labelColor=101418&color=d3bfe6)
+
 #### LyonOS V2 - New and *improved!*
 
 LyonOS is my personal, opinionated Linux distribution based on NixOS. This repository contains all the configuration files to replicate my complete desktop environment (ricing) on any machine.
