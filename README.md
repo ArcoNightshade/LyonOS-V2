@@ -1,7 +1,7 @@
 
-![GitHub last commit](https://img.shields.io/github/last-commit/LyonOS-V2/shell?style=for-the-badge&labelColor=101418&color=9ccbfb)
-![GitHub Repo stars](https://img.shields.io/github/stars/LyonOS-V2/shell?style=for-the-badge&labelColor=101418&color=b9c8da)
-![GitHub repo size](https://img.shields.io/github/repo-size/LyonOS-V2/shell?style=for-the-badge&labelColor=101418&color=d3bfe6)
+![GitHub last commit](https://img.shields.io/github/last-commit/ArcoNightshade/LyonOS-V2?style=for-the-badge&labelColor=101418&color=9ccbfb)
+![GitHub Repo stars](https://img.shields.io/github/stars/ArcoNightshade/LyonOS-V2?style=for-the-badge&labelColor=101418&color=b9c8da)
+![GitHub repo size](https://img.shields.io/github/repo-size/ArcoNightshade/LyonOS-V2?style=for-the-badge&labelColor=101418&color=d3bfe6)
 
 #### LyonOS V2 - New and *improved!*
 
