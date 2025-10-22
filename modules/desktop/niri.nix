@@ -3,7 +3,8 @@
   environment.systemPackages = with pkgs; [
     mako
     swww
-    mpvpaper # New experimental wallpaper stuff
+    mpvpaper # New experimental wallpaper
+    yt-dlp
     niri
     waybar
     fuzzel
