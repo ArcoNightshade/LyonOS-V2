@@ -54,15 +54,15 @@ home-manager.users.${settings.account.name} = {
     [url]
      label-letters=sadfjklewcmpgh
      osc8-underline=url-mode
-     protocols=http, https, ftp, ftps, file, gemini, gopher
-     uri-characters=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+="'()[]
+     # protocols=http, https, ftp, ftps, file, gemini, gopher
+     # uri-characters=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+="'()[]
 
     [cursor]
      style=underline
-     color=<inverse foreground/background>
+     # color=<inverse foreground/background>
      blink=yes
      beam-thickness=1.5
-     underline-thickness=<font underline thickness>
+     # underline-thickness=<font underline thickness>
 
     [mouse]
     # hide-when-typing=no
