@@ -7,7 +7,6 @@
     ../../modules/experimental/cutting-edge.nix # Cutting edge stuff here (Nushell, uutils, and zoxide)
     ../../modules/apps/nushell.nix # Configuring nushell
     ../../modules/apps/fastfetch.nix # Defining the fastfetch configuration
-    ../../modules/commands/shell.nix # Aliases for bash; currently deprecated due to usage of nushell
     ../../modules/Development/nix.nix # Nixd and nil
     ../../modules/Development/rs.nix # Rustup
     ../../modules/Development/haskell.nix # GHC and HLS stuff
