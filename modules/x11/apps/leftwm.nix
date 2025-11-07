@@ -15,3 +15,6 @@
   };
 
   boot.plymouth.enable = true;
+
+  Getting the sweet wallpapers
+  home.file."Pictures/Wallpapers".source = ./wallpapers;
