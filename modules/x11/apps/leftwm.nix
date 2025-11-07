@@ -13,3 +13,5 @@
     jack.enable = true;
     wireplumber.enable = true;
   };
+
+  boot.plymouth.enable = true;
