@@ -53,5 +53,18 @@
         ./compose.nix
       ];
     };
+    nixosConfigurations.x11 = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs system settings; };
+      modules = [
+        /* some stuff for chaotic nyx */
+        inputs.chaotic.nixosModules.nyx-cache
+        inputs.chaotic.nixosModules.nyx-overlay
+        inputs.chaotic.nixosModules.nyx-registry
+        inputs.home-manager.nixosModules.home-manager
+        ./profile/x11/hardware.nix
+        ./profile/x11/configuration.nix
+        ./compose.nix
+      ];
+    };
   };
 }
