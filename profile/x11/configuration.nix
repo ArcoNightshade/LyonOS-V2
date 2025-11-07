@@ -1,5 +1,8 @@
 { pkgs, ... }: {
   imports = [
+    ../../modules/x11/apps/leftwm.nix # Enabling and seting up LeftWM
+    ../../modules/x11/apps/software.nix # Enabling critical software
+    ../../modules/x11/apps/st.nix # Installing and patching ST (Suckless/Simple Terminal)
     ../../modules/apps/steam.nix # Installing steam
     ../../modules/experimental/cutting-edge.nix # Cutting edge stuff here (Nushell, uutils, and zoxide)
     ../../modules/apps/nushell.nix # Configuring nushell
