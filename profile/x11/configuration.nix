@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ../../modules/x11/apps/leftwm.nix # Enabling and seting up LeftWM
+    ../../modules/desktop/leftwm.nix # Enabling and seting up LeftWM
     ../../modules/x11/apps/software.nix # Enabling critical software
     ../../modules/x11/apps/st.nix # Installing and patching ST (Suckless/Simple Terminal)
     ../../modules/apps/steam.nix # Installing steam
