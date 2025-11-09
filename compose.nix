@@ -1,4 +1,3 @@
-
 { lib, settings,  ... }: {
   networking.hostName = "RTS"; # Change the hostname if you want
   system.stateVersion = "25.05"; # Don't change this
