@@ -18,6 +18,8 @@
 
   boot.plymouth.enable = true;
 
-  # Getting the wallpapers
-  home.file."Pictures/Wallpapers".source = ./wallpapers;
+  home-manager.users.${settings.account.name} = {
+    # Getting the wallpapers
+    home.file."Pictures/Wallpapers".source = ./wallpapers;
+  };
 }
