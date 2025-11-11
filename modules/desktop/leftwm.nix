@@ -1,4 +1,4 @@
-{ ... }:
+{ settings, ... }:
 {
 # Enabling LeftWM
   services.xserver.windowManager.leftwm.enable = true;
