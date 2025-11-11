@@ -1,5 +1,7 @@
 { pkgs, ... }: {
   imports = [
+    ../../modules/desktop/leftwm.nix # HIGHLY EXPERIMENTAL
+    ../../modules/x11/apps/st.nix # HIGHLY EXPERIMENTAL
     ../../modules/desktop/niri.nix # Installing and configuring niri and wallpaper directory
     ../../modules/desktop/gnome.nix # Installing gnome DE
     ../../modules/apps/software.nix # Installing all of the graphical software
