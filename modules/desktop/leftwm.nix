@@ -1,4 +1,6 @@
-  # Enabling LeftWM
+{ ... }:
+{
+# Enabling LeftWM
   services.xserver.windowManager.leftwm.enable = true;
   services.xserver.enable = true;
   services.displayManager.ly.enable = true;
@@ -16,5 +18,6 @@
 
   boot.plymouth.enable = true;
 
-  Getting the sweet wallpapers
+  # Getting the wallpapers
   home.file."Pictures/Wallpapers".source = ./wallpapers;
+}
