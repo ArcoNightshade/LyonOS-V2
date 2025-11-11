@@ -4,10 +4,6 @@
       patches = [
         # Fetch them directly from st.suckless.org
         (fetchpatch {
-          url = "https://st.suckless.org/patches/background_image/st-background-image-0.8.4.diff";
-          sha256 = "bdca2ab413b622c1e8708b44daa216acb37d72d252db7c1f9f26d922e1093a2e";
-        })
-        (fetchpatch {
           url = "https://st.suckless.org/patches/scrollback/st-scrollback-0.8.4.diff";
           sha256 = "418e1c5df11105482f13a008218c89eadb974630c25b4a6ff3da763dc2560e44";
         })
