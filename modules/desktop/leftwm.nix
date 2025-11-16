@@ -1,6 +1,6 @@
 { settings, ... }:
 {
-# Enabling LeftWM
+  # Enabling LeftWM
   services.xserver.windowManager.leftwm.enable = true;
   services.xserver.enable = true;
   services.displayManager.ly.enable = true;
