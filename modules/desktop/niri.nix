@@ -314,6 +314,7 @@
 
     # ${pkgs.waybar}/bin/waybar -c ~/.config/waybar/config-niri
     caelestia scheme set -n dynamic
+    caelestia shell -d
   '';
   };
 
