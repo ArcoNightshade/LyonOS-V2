@@ -1,8 +1,5 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-<<<<<<< HEAD
-    st
-=======
     (st.overrideAttrs (oldAttrs: rec {
       patches = [
         # Fetch them directly from st.suckless.org
