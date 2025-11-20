@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, settings, lib, ... }:
 
 {
   imports = [
@@ -7,7 +7,7 @@
   ];
 
   # Main packages
-  home.packages = with pkgs; [
+  home-manager.users.${settings.account.name}.home.packages = with pkgs; [
     config.programs.quickshell.finalPackage  # Our wrapped quickshell
     config.programs.quickshell.caelestia-scripts
     # Qt dependencies
@@ -101,12 +101,5 @@
     Install = {
       WantedBy = [ "graphical-session.target" ];
     };
-  };
-
-  # Shell aliases
-  home.shellAliases = {
-    caelestia-shell = "qs -c caelestia";
-    caelestia-edit = "cd ${config.xdg.configHome}/quickshell/caelestia && $EDITOR";
-    caelestia = "caelestia-quickshell";
   };
 }

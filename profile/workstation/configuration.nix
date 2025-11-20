@@ -8,7 +8,7 @@
     ../../modules/apps/nushell.nix # Configuring nushell
     ../../modules/apps/zed.nix # Installing and configuring zed editor
     ../../modules/apps/waybar.nix # Defining the waybar configuration
-    ../../modules/apps/quickshell/default.nix # Defining the quickshell configuration
+#    ../../modules/apps/quickshell/default.nix # Defining the quickshell configuration
     ../../modules/apps/fuzzel.nix # Defining the fuzzel configuration
     ../../modules/apps/foot.nix # Defining the foot configuration
     ../../modules/apps/fastfetch.nix # Defining the fastfetch configuration

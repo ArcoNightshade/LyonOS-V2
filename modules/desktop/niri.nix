@@ -10,7 +10,6 @@
     fuzzel
     foot
     xwayland-satellite
-    caelestia-shell.packages.x86_64-linux.default
   ];
 
   # Enable desktop environment
@@ -312,9 +311,7 @@
     text = ''
     #!/usr/bin/env bash
 
-    # ${pkgs.waybar}/bin/waybar -c ~/.config/waybar/config-niri
-    caelestia scheme set -n dynamic
-    caelestia shell -d
+    ${pkgs.waybar}/bin/waybar -c ~/.config/waybar/config-niri
   '';
   };
 
@@ -332,11 +329,9 @@
     text = ''
     #!/usr/bin/env bash
 
-    #${pkgs.swww}/bin/swww-daemon &
+    ${pkgs.swww}/bin/swww-daemon &
 
-    # ${pkgs.swww}/bin/swww img ~/Pictures/Wallpapers/redbull.jpg
-
-    caelestia wallpaper -f ~/Pictures/Wallpapers/redbull.jpg
+    ${pkgs.swww}/bin/swww img ~/Pictures/Wallpapers/redbull.jpg
     '';
   };
 

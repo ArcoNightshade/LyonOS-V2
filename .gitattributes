@@ -1,2 +1,5 @@
 *.css -linguist-detectable
 *.sh -linguist-detectable
+*.qml -linguist-detectable
+*.js -linguist-detectable
+
