@@ -2,4 +2,4 @@
 *.sh -linguist-detectable
 *.qml -linguist-detectable
 *.js -linguist-detectable
-
+*.py -linguist-detectable

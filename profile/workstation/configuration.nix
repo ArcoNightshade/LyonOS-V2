@@ -16,7 +16,6 @@
     ../../modules/commands/shell.nix # Aliases for bash; currently deprecated due to usage of nushell
     ../../modules/Development/nix.nix # Nixd and nil
     ../../modules/Development/rs.nix # Rustup
-    ../../modules/Development/haskell.nix # GHC and HLS stuff
 #    ../../modules/lyonos/branding.nix # Removed as of 2025-09-26 because of logo problems with fastfetch.
   ];
 

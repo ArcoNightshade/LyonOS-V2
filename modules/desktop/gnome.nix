@@ -1,7 +1,7 @@
 { ... }: {
   # Enable desktop environment
   services.xserver.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Audio
   security.rtkit.enable = true;

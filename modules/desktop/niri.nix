@@ -10,6 +10,7 @@
     fuzzel
     foot
     xwayland-satellite
+    package-version-server
   ];
 
   # Enable desktop environment
