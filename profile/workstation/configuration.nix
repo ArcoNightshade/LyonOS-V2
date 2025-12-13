@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ../../modules/desktop/niri.nix # Installing and configuring niri and wallpaper directory
     ../../modules/desktop/gnome.nix # Installing gnome DE
@@ -8,7 +9,6 @@
     ../../modules/apps/nushell.nix # Configuring nushell
     ../../modules/apps/zed.nix # Installing and configuring zed editor
     ../../modules/apps/waybar.nix # Defining the waybar configuration
-#    ../../modules/apps/quickshell/default.nix # Defining the quickshell configuration
     ../../modules/apps/fuzzel.nix # Defining the fuzzel configuration
     ../../modules/apps/foot.nix # Defining the foot configuration
     ../../modules/apps/fastfetch.nix # Defining the fastfetch configuration
@@ -16,7 +16,6 @@
     ../../modules/commands/shell.nix # Aliases for bash; currently deprecated due to usage of nushell
     ../../modules/Development/nix.nix # Nixd and nil
     ../../modules/Development/rs.nix # Rustup
-#    ../../modules/lyonos/branding.nix # Removed as of 2025-09-26 because of logo problems with fastfetch.
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -26,11 +25,14 @@
 
   services.scx.enable = true; # Better scheduler
 
-  fonts.packages = [ pkgs.nerd-fonts.fira-code pkgs.nerd-fonts.symbols-only ]; # Installing some nerd fonts and symbols
+  fonts.packages = [
+    pkgs.nerd-fonts.fira-code
+    pkgs.nerd-fonts.symbols-only
+  ]; # Installing some nerd fonts and symbols
 
   hardware.cpu.intel.updateMicrocode = true; # Enabling intel microcode, if you use AMD, change it.
 
-  /* Below is a ton of kernel parameters and module stuff, modify at your own risk (Litle to none lol). */
+  # Below is a ton of kernel parameters and module stuff, modify at your own risk (Litle to none lol).
   boot.kernelParams = [
     "splash"
     "quiet"
@@ -64,59 +66,59 @@
   ];
 
   boot.blacklistedKernelModules = [
-    "nouveau"   # Conflicts with Nvidia driver
-    "nvidia"    # It's bad
+    "nouveau" # Conflicts with Nvidia driver
+    "nvidia" # It's bad
 
-# Obscure network protocols.
+    # Obscure network protocols.
     "af_802154" # IEEE 802.15.4
     "appletalk" # Appletalk
-    "atm"       # ATM
-    "ax25"      # Amatuer X.25
-    "can"       # Controller Area Network
-    "dccp"      # Datagram Congestion Control Protocol
-    "decnet"    # DECnet
-    "econet"    # Econet
-    "ipx"       # Internetwork Packet Exchange
-    "n-hdlc"    # High-level Data Link Control
-    "netrom"    # NetRom
-    "p8022"     # IEEE 802.3
-    "p8023"     # Novell raw IEEE 802.3
-    "psnap"     # SubnetworkAccess Protocol
-    "rds"       # Reliable Datagram Sockets
-    "rose"      # ROSE
-    "sctp"      # Stream Control Transmission Protocol
-    "tipc"      # Transparent Inter-Process Communication
-    "x25"       # X.25
+    "atm" # ATM
+    "ax25" # Amatuer X.25
+    "can" # Controller Area Network
+    "dccp" # Datagram Congestion Control Protocol
+    "decnet" # DECnet
+    "econet" # Econet
+    "ipx" # Internetwork Packet Exchange
+    "n-hdlc" # High-level Data Link Control
+    "netrom" # NetRom
+    "p8022" # IEEE 802.3
+    "p8023" # Novell raw IEEE 802.3
+    "psnap" # SubnetworkAccess Protocol
+    "rds" # Reliable Datagram Sockets
+    "rose" # ROSE
+    "sctp" # Stream Control Transmission Protocol
+    "tipc" # Transparent Inter-Process Communication
+    "x25" # X.25
     # Old or rare or insufficiently audited filesystems.
-    "adfs"     # Active Directory Federation Services
-    "affs"     # Amiga Fast File System
-    "befs"     # "Be File System"
-    "bfs"      # BFS, used by SCO UnixWare OS for the /stand slice
-    "cifs"     # Common Internet File System
-    "cramfs"   # compressed ROM/RAM file system
-    "efs"      # Extent File System
-    "erofs"    # Enhanced Read-Only File System
-    "exofs"    # EXtended Object File System
-    "f2fs"     # Flash-Friendly File System
+    "adfs" # Active Directory Federation Services
+    "affs" # Amiga Fast File System
+    "befs" # "Be File System"
+    "bfs" # BFS, used by SCO UnixWare OS for the /stand slice
+    "cifs" # Common Internet File System
+    "cramfs" # compressed ROM/RAM file system
+    "efs" # Extent File System
+    "erofs" # Enhanced Read-Only File System
+    "exofs" # EXtended Object File System
+    "f2fs" # Flash-Friendly File System
     "freevxfs" # Veritas filesystem driver
-    "gfs2"     # Global File System 2
-    "hfs"      # Hierarchical File System (Macintosh)
-    "hfsplus"  # Same as above, but with extended attributes.
-    "hpfs"     # High Performance File System (used by OS/2)
-    "jffs2"    # Journalling Flash File System (v2)
-    "jfs"      # Journaled File System - only useful for VMWare sessions
-    "ksmbd"    # SMB3 Kernel Server
-    "minix"    # minix fs - used by the minix OS
-    "nfs"      # Network File System
-    "nfsv3"    # Network File System (v3)
-    "nfsv4"    # Network File System (v4)
-    "nilfs2"   # New Implementation of a Log-structured File System
-    "omfs"     # Optimized MPEG Filesystem
-    "qnx4"     # Extent-based file system used by the QNX4 OS.
-    "qnx6"     # Extent-based file system used by the QNX6 OS.
-    "sysv"     # implements all of Xenix FS, SystemV/386 FS and Coherent FS.
-    "udf"      # https://docs.kernel.org/5.15/filesystems/udf.html
-    "vivid"    # Virtual Video Test Driver (unnecessary)
+    "gfs2" # Global File System 2
+    "hfs" # Hierarchical File System (Macintosh)
+    "hfsplus" # Same as above, but with extended attributes.
+    "hpfs" # High Performance File System (used by OS/2)
+    "jffs2" # Journalling Flash File System (v2)
+    "jfs" # Journaled File System - only useful for VMWare sessions
+    "ksmbd" # SMB3 Kernel Server
+    "minix" # minix fs - used by the minix OS
+    "nfs" # Network File System
+    "nfsv3" # Network File System (v3)
+    "nfsv4" # Network File System (v4)
+    "nilfs2" # New Implementation of a Log-structured File System
+    "omfs" # Optimized MPEG Filesystem
+    "qnx4" # Extent-based file system used by the QNX4 OS.
+    "qnx6" # Extent-based file system used by the QNX6 OS.
+    "sysv" # implements all of Xenix FS, SystemV/386 FS and Coherent FS.
+    "udf" # https://docs.kernel.org/5.15/filesystems/udf.html
+    "vivid" # Virtual Video Test Driver (unnecessary)
 
     # Disable Thunderbolt and FireWire to prevent DMA attacks
     "firewire-core"
