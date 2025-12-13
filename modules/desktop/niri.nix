@@ -3,7 +3,7 @@
   environment.systemPackages = with pkgs; [
     mako
     swww
-    mpvpaper # New experimental wallpaper
+    mpvpaper
     yt-dlp
     niri
     waybar
