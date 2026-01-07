@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LyonOS | The Ultimate Flake</title>
+    <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+    <nav class="glass-nav">
+        <div class="logo">LyonOS_</div>
+        <div class="links">
+            <a href="index.html" class="active">Home</a>
+            <a href="docs.html">Install</a>
+            <a href="system.html">System</a>
+            <a href="https://github.com/ArcoNightshade/LyonOS-V2" target="_blank">Source</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-body">
+                    <p class="prompt"><span class="user">lyon@nix</span>:<span class="path">~</span>$ <span id="typing-text"></span><span class="cursor">|</span></p>
+                    <p id="terminal-output" class="hidden">
+                        >> . <br>
+                        >> ├── modules <br>
+                        >> │   ├── apps <br>
+                        >> │   ├── desktop <br>
+                        >> │   └── development <br>
+                        >> ├── profile <br>
+                        >> └── compose.nix
+                    </p>
+                </div>
+            </div>
+            <h1>The Ultimate <span class="gradient-text">NixOS Flake</span>.</h1>
+            <p class="subtitle">An opinionated, reproducible system configuration built for performance.</p>
+            
+            <div class="cta-container" style="flex-direction: column;">
+                <a href="docs.html" class="btn secondary" style="width: 100%; text-align: center; justify-content: center; display: flex;">Install Guide</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="card">
+            <h3>Composable</h3>
+            <p>Built on <code>compose.nix</code> architecture for flexible module integration.</p>
+        </div>
+        <div class="card">
+            <h3>Modular Design</h3>
+            <p>Separated into apps, desktop, and development layers.</p>
+        </div>
+        <div class="card">
+            <h3>Profile Based</h3>
+            <p>Easily switch between different system personalities using the <code>profile</code> directory.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 LyonOS Project. Distributed under the MIT License.</p>
+    </footer>
+
+    <script src="script.js?v=3"></script>
+</body>
+</html>
