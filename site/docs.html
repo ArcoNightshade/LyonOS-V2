@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation | LyonOS</title>
+    <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+    <nav class="glass-nav">
+        <div class="logo">LyonOS_</div>
+        <div class="links">
+            <a href="index.html">Home</a>
+            <a href="docs.html" class="active">Install</a>
+            <a href="system.html">System</a>
+            <a href="https://github.com/ArcoNightshade/LyonOS-V2" target="_blank">Source</a>
+        </div>
+    </nav>
+
+    <main class="docs-layout">
+        <aside class="sidebar">
+            <h3>Setup Phase</h3>
+            <ul>
+                <li><a href="#step1">1. Clone & Clean</a></li>
+                <li><a href="#step2">2. Hardware Config</a></li>
+                <li><a href="#step3">3. User Settings</a></li>
+                <li><a href="#step4">4. Drive Config</a></li>
+                <li><a href="#step5">5. Password</a></li>
+                <li><a href="#step6">6. Install</a></li>
+            </ul>
+            <h3>Post-Install</h3>
+            <ul>
+                <li><a href="#commands">Commands</a></li>
+                <li><a href="#nvidia">NVIDIA</a></li>
+            </ul>
+        </aside>
+        
+        <article class="content">
+            <h1>Installation Guide</h1>
+            <p>LyonOS V2 is a NixOS flake for laptops, desktops, and VMs.</p>
+
+            <h3 id="step1">1. Clone & Clean</h3>
+            <p>Clone the repository and remove the git history to detach from upstream.</p>
+            <div class="code-block"><code>git clone https://github.com/ArcoNightshade/LyonOS-V2 ~/.lyonos && rm -rf ~/.lyonos/.git</code></div>
+
+            <h3 id="step2">2. Hardware Configuration</h3>
+            <p>Copy your existing system's hardware scan to the workstation profile.</p>
+            <div class="code-block"><code>cp /etc/nixos/hardware-configuration.nix ~/.lyonos/profile/workstation/hardware.nix</code></div>
+
+            <h3 id="step3">3. User Settings</h3>
+            <p>Open <code>flake.nix</code> and set your desired username.</p>
+            <div class="code-block"><code>nano ~/.lyonos/flake.nix</code></div>
+
+            <h3 id="step4">4. Drive Configuration</h3>
+            <p>Open <code>compose.nix</code> and scroll to the bottom to specify your drive type.</p>
+            <div class="code-block"><code>nano ~/.lyonos/compose.nix</code></div>
+
+            <h3 id="step5">5. Password Setup</h3>
+            <p>Generate a SHA-512 hash for your password.</p>
+            <div class="code-block"><code>mkpasswd -m sha-512</code></div>
+            <p>Paste the output into <code>hashedPassword = "";</code> inside <code>compose.nix</code>.</p>
+            <div class="code-block"><code>nano ~/.lyonos/compose.nix</code></div>
+
+            <h3 id="step6">6. Build & Reboot</h3>
+            <p>Build the flake and add it to the bootloader.</p>
+            <div class="code-block"><code>sudo nixos-rebuild boot --flake ~/.lyonos#workstation</code></div>
+
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <h1 id="commands">Management</h1>
+            
+            <p><strong>Switch (Apply Immediately)</strong></p>
+            <div class="code-block"><code>sudo nixos-rebuild switch --flake ~/.lyonos#workstation</code></div>
+
+            <p><strong>Rollback</strong></p>
+            <div class="code-block"><code>sudo nixos-rebuild switch --flake ~/.lyonos#workstation --rollback</code></div>
+
+            <p><strong>Update System</strong></p>
+            <div class="code-block"><code>sudo nix flake update --flake ~/.lyonos#workstation</code></div>
+
+            <p><strong>Garbage Collection</strong></p>
+            <div class="code-block"><code>sudo nix-collect-garbage</code></div>
+
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0;">
+
+            <h1 id="nvidia">NVIDIA Drivers</h1>
+            <p>To enable NVIDIA, edit <code>compose.nix</code>. Change <code>{ settings, ... }:</code> to <code>{ settings, config, ... }:</code> and add:</p>
+
+            <div class="code-block"><code>  hardware.nvidia.open = false;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
+  boot.blacklistedKernelModules = [ "nouveau" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+  boot.kernelParams = [
+    "nvidia_drm"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia-drm.fbdev=1"
+    "nvidia"
+  ];</code></div>
+        </article>
+    </main>
+
+    <script src="script.js?v=3"></script>
+    <style>
+        html { scroll-behavior: smooth; } 
+        :target { scroll-margin-top: 100px; }
+    </style>
+</body>
+</html>
