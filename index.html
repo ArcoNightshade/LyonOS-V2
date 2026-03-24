@@ -1,1070 +1,1408 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>lyonos.dev</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg:       #080807;
-  --bg2:      #0d0d0b;
-  --surface:  #111110;
-  --surface2: #181815;
-  --border:   #252520;
-  --border2:  #333330;
-  --text:     #ddd9cc;
-  --text2:    #7a7868;
-  --text3:    #3a3830;
-  --lime:     #c6f135;
-  --lime2:    #9dc020;
-  --lime-dim: rgba(198,241,53,0.07);
-  --red:      #e8304a;
-  --amber:    #e8a020;
-  --ice:      #88ccee;
-  --mono:     'Fragment Mono', monospace;
-  --display:  'Bebas Neue', sans-serif;
-  --serif:    'DM Serif Display', serif;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* CUSTOM CURSOR */
-#cursor {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: var(--lime);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 10000;
-  transition: transform 0.08s ease, width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode: difference;
-}
-
-#cursor-ring {
-  position: fixed;
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(198,241,53,0.4);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.18s ease, width 0.2s, height 0.2s, opacity 0.2s;
-}
-
-body:has(a:hover) #cursor { width: 6px; height: 6px; background: var(--lime); }
-body:has(a:hover) #cursor-ring { width: 52px; height: 52px; border-color: rgba(198,241,53,0.7); }
-
-/* NOISE OVERLAY */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.028;
-  pointer-events: none;
-  z-index: 9998;
-}
-
-/* SCANLINES */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0,0,0,0.06) 3px,
-    rgba(0,0,0,0.06) 4px
-  );
-  pointer-events: none;
-  z-index: 9997;
-}
-
-/* ─── NAV ─────────────────────────────────────────── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 500;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 52px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(8,8,7,0.9);
-  backdrop-filter: blur(16px);
-}
-
-.nav-wordmark {
-  font-family: var(--display);
-  font-size: 22px;
-  letter-spacing: 0.06em;
-  color: var(--text);
-  text-decoration: none;
-}
-
-.nav-wordmark span { color: var(--lime); }
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.nav-right a {
-  color: var(--text2);
-  text-decoration: none;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-
-.nav-right a:hover { color: var(--lime); }
-
-/* HAMBURGER */
-.nav-hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 36px;
-  height: 36px;
-  background: none;
-  border: 1px solid var(--border2);
-  cursor: none;
-  padding: 8px;
-}
-
-.nav-hamburger span {
-  display: block;
-  height: 1.5px;
-  background: var(--text2);
-  transition: all 0.25s;
-  transform-origin: center;
-}
-
-.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-.nav-drawer {
-  display: none;
-  position: fixed;
-  top: 52px; left: 0; right: 0;
-  background: rgba(8,8,7,0.98);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  z-index: 499;
-  padding: 8px 0 16px;
-  opacity: 0;
-  transform: translateY(-6px);
-  pointer-events: none;
-  transition: opacity 0.22s ease, transform 0.22s ease;
-}
-
-.nav-drawer.open { opacity: 1; transform: translateY(0); pointer-events: all; }
-
-.nav-drawer a {
-  display: block;
-  padding: 12px 24px;
-  color: var(--text2);
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
-  transition: color 0.15s, background 0.15s;
-}
-
-.nav-drawer a:last-child { border-bottom: none; }
-.nav-drawer a:hover { color: var(--lime); background: var(--surface); }
-
-/* ─── HERO ────────────────────────────────────────── */
-.hero {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 52px 40px 0;
-  position: relative;
-  overflow: hidden;
-}
-
-/* DIAGONAL GRID */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.hero-bg-grid {
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.25;
-  transform: rotate(-12deg);
-  mask-image: radial-gradient(ellipse 70% 70% at 60% 40%, black 20%, transparent 80%);
-}
-
-.hero-bg-glow {
-  position: absolute;
-  bottom: 0; right: -10%;
-  width: 700px; height: 500px;
-  background: radial-gradient(ellipse at bottom right, rgba(198,241,53,0.05) 0%, transparent 65%);
-}
-
-.hero-bg-glow2 {
-  position: absolute;
-  top: 30%; left: -5%;
-  width: 400px; height: 400px;
-  background: radial-gradient(ellipse, rgba(136,204,238,0.03) 0%, transparent 70%);
-}
-
-/* LARGE BACKGROUND TEXT */
-.hero-bg-type {
-  position: absolute;
-  bottom: -0.12em;
-  left: -0.02em;
-  font-family: var(--display);
-  font-size: clamp(160px, 28vw, 340px);
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--border2);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  letter-spacing: -0.02em;
-}
-
-/* HERO CONTENT */
-.hero-inner {
-  position: relative;
-  z-index: 2;
-  padding-bottom: 0;
-}
-
-.hero-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--lime);
-  margin-bottom: 24px;
-  opacity: 0;
-  animation: riseIn 0.5s 0.1s forwards;
-}
-
-.hero-eyebrow-line {
-  width: 32px;
-  height: 1px;
-  background: var(--lime);
-}
-
-.hero-name {
-  font-family: var(--display);
-  font-size: clamp(72px, 13vw, 180px);
-  line-height: 0.88;
-  letter-spacing: -0.01em;
-  margin-bottom: 8px;
-  opacity: 0;
-  animation: riseIn 0.6s 0.18s forwards;
-}
-
-.hero-name-accent {
-  color: var(--lime);
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 0.55em;
-  vertical-align: middle;
-  letter-spacing: 0;
-}
-
-.hero-domain {
-  font-size: clamp(14px, 2vw, 18px);
-  color: var(--text2);
-  letter-spacing: 0.06em;
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: riseIn 0.6s 0.28s forwards;
-}
-
-.hero-domain span { color: var(--lime); }
-
-/* TERMINAL LINE */
-.hero-terminal {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--text3);
-  margin-bottom: 64px;
-  opacity: 0;
-  animation: riseIn 0.5s 0.4s forwards;
-}
-
-.terminal-prompt { color: var(--lime); }
-.terminal-text { color: var(--text2); }
-
-.terminal-cursor {
-  display: inline-block;
-  width: 8px;
-  height: 14px;
-  background: var(--lime);
-  animation: blink 1s step-end infinite;
-  vertical-align: middle;
-}
-
-/* HERO STATS BAR */
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--border);
-  opacity: 0;
-  animation: riseIn 0.5s 0.5s forwards;
-}
-
-.hero-stat {
-  padding: 20px 24px;
-  border-right: 1px solid var(--border);
-  position: relative;
-}
-
-.hero-stat:last-child { border-right: none; }
-
-.hero-stat-num {
-  font-family: var(--display);
-  font-size: 32px;
-  color: var(--lime);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.hero-stat-label {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-}
-
-/* ─── PROJECTS ────────────────────────────────────── */
-.projects {
-  padding: 120px 40px;
-  position: relative;
-}
-
-.projects-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 64px;
-  gap: 20px;
-}
-
-.projects-title {
-  font-family: var(--display);
-  font-size: clamp(48px, 7vw, 88px);
-  line-height: 1;
-  letter-spacing: -0.01em;
-}
-
-.projects-title em {
-  font-family: var(--serif);
-  font-style: italic;
-  color: var(--text2);
-  font-size: 0.6em;
-}
-
-.projects-count {
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text3);
-  white-space: nowrap;
-}
-
-/* PROJECT CARDS GRID */
-.projects-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-
-/* PROJECT CARD */
-.project-card {
-  background: var(--surface);
-  padding: 40px;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.25s;
-  min-height: 360px;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--lime-dim) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.35s;
-}
-
-.project-card:hover { background: var(--surface2); }
-.project-card:hover::before { opacity: 1; }
-
-/* CARD CORNER ACCENT */
-.project-card::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 0; height: 0;
-  border-top: 48px solid var(--border);
-  border-left: 48px solid transparent;
-  transition: border-top-color 0.25s;
-}
-
-.project-card:hover::after { border-top-color: var(--lime-dim); }
-
-.card-index {
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 32px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.card-index::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-  max-width: 60px;
-}
-
-.card-label {
-  display: inline-block;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border: 1px solid var(--border2);
-  padding: 3px 10px;
-  color: var(--text3);
-  margin-bottom: 16px;
-  transition: border-color 0.25s, color 0.25s;
-}
-
-.project-card:hover .card-label {
-  border-color: var(--lime);
-  color: var(--lime);
-}
-
-.card-title {
-  font-family: var(--display);
-  font-size: clamp(42px, 5.5vw, 72px);
-  line-height: 0.9;
-  letter-spacing: -0.01em;
-  color: var(--text);
-  margin-bottom: 20px;
-  transition: color 0.25s;
-}
-
-.card-sub {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 15px;
-  color: var(--text2);
-  margin-bottom: auto;
-  line-height: 1.5;
-  padding-bottom: 28px;
-}
-
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-  margin-top: auto;
-}
-
-.card-url {
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--text3);
-  transition: color 0.25s;
-}
-
-.project-card:hover .card-url { color: var(--lime); }
-
-.card-arrow {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text3);
-  font-size: 16px;
-  transition: all 0.25s;
-  flex-shrink: 0;
-}
-
-.project-card:hover .card-arrow {
-  border-color: var(--lime);
-  color: var(--lime);
-  transform: translate(2px, -2px);
-}
-
-/* CARD VARIANTS */
-.card-lythos .card-title { }
-.card-lythos .card-label { border-color: var(--border2); }
-
-.card-os .card-title { }
-.card-os .card-label { }
-
-/* CARD DECORATION - floating chars */
-.card-deco {
-  position: absolute;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--border2);
-  user-select: none;
-  pointer-events: none;
-  transition: color 0.25s;
-  line-height: 1.4;
-}
-
-.project-card:hover .card-deco { color: var(--border2); }
-
-.deco-br { bottom: 60px; right: 40px; text-align: right; }
-.deco-tl { top: 52px; right: 40px; text-align: right; font-size: 10px; }
-
-/* ─── ABOUT STRIP ─────────────────────────────────── */
-.about-strip {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 64px 40px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 80px;
-  align-items: start;
-  background: var(--bg2);
-}
-
-.about-label {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 16px;
-}
-
-.about-heading {
-  font-family: var(--display);
-  font-size: clamp(32px, 4vw, 52px);
-  line-height: 1;
-  letter-spacing: -0.01em;
-}
-
-.about-heading em {
-  font-family: var(--serif);
-  font-style: italic;
-  color: var(--lime);
-  font-size: 0.8em;
-}
-
-.about-body {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.about-p {
-  font-size: 13px;
-  color: var(--text2);
-  line-height: 1.85;
-}
-
-.about-p strong { color: var(--text); font-weight: 400; }
-
-.about-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.tag {
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border: 1px solid var(--border2);
-  color: var(--text3);
-  transition: all 0.2s;
-}
-
-.tag:hover { border-color: var(--lime); color: var(--lime); }
-.tag.active { border-color: var(--lime); color: var(--lime); background: var(--lime-dim); }
-
-/* ─── MARQUEE ─────────────────────────────────────── */
-.marquee-wrap {
-  overflow: hidden;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 0;
-  background: var(--surface);
-}
-
-.marquee-track {
-  display: flex;
-  gap: 0;
-  animation: marquee 28s linear infinite;
-  white-space: nowrap;
-  width: max-content;
-}
-
-.marquee-item {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 0 32px;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text3);
-}
-
-.marquee-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--lime);
-  transform: rotate(45deg);
-  flex-shrink: 0;
-}
-
-/* ─── FOOTER ──────────────────────────────────────── */
-footer {
-  padding: 48px 40px 32px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-}
-
-.footer-left .wordmark {
-  font-family: var(--display);
-  font-size: 28px;
-  letter-spacing: 0.06em;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-
-.footer-left .wordmark span { color: var(--lime); }
-
-.footer-left p {
-  font-size: 11px;
-  color: var(--text3);
-  line-height: 1.7;
-  max-width: 280px;
-}
-
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: right;
-}
-
-.footer-links a {
-  font-size: 12px;
-  color: var(--text2);
-  text-decoration: none;
-  letter-spacing: 0.06em;
-  transition: color 0.2s;
-}
-
-.footer-links a:hover { color: var(--lime); }
-
-.footer-bottom {
-  border-top: 1px solid var(--border);
-  padding: 16px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--bg2);
-}
-
-.footer-bottom p {
-  font-size: 10px;
-  color: var(--text3);
-  letter-spacing: 0.08em;
-}
-
-/* ─── ANIMATIONS ──────────────────────────────────── */
-@keyframes riseIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* GLITCH on hover of hero name */
-.hero-name:hover { animation: glitch 0.3s steps(2) forwards; }
-
-@keyframes glitch {
-  0%   { text-shadow: 2px 0 var(--red), -2px 0 var(--ice); }
-  20%  { text-shadow: -2px 0 var(--red), 2px 0 var(--ice); clip-path: inset(10% 0 80% 0); }
-  40%  { text-shadow: 2px 0 var(--red), -2px 0 var(--ice); clip-path: inset(40% 0 50% 0); }
-  60%  { text-shadow: -3px 0 var(--lime), 3px 0 var(--red); clip-path: inset(0); }
-  80%  { text-shadow: none; }
-  100% { text-shadow: none; }
-}
-
-/* ─── RESPONSIVE ──────────────────────────────────── */
-@media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .nav-right { display: none; }
-  .nav-hamburger { display: flex; }
-  .nav-drawer { display: block; }
-
-  .hero { padding: 52px 20px 0; }
-  .hero-bg-type { font-size: clamp(100px, 24vw, 160px); }
-  .hero-stats { grid-template-columns: 1fr 1fr; }
-  .hero-stat { padding: 16px; }
-  .hero-stat-num { font-size: 24px; }
-
-  .projects { padding: 72px 20px; }
-  .projects-header { flex-direction: column; gap: 8px; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .project-card { min-height: 280px; padding: 28px; }
-  .card-title { font-size: clamp(48px, 12vw, 72px); }
-
-  .about-strip { grid-template-columns: 1fr; gap: 32px; padding: 48px 20px; }
-
-  footer { flex-direction: column; align-items: flex-start; padding: 36px 20px 24px; }
-  .footer-links { text-align: left; }
-  .footer-bottom { flex-direction: column; gap: 6px; padding: 14px 20px; }
-}
-
-@media (max-width: 480px) {
-  .hero-domain { font-size: 13px; }
-  .hero-terminal { display: none; }
-  .hero-stats { grid-template-columns: 1fr 1fr; }
-  .projects { padding: 56px 16px; }
-  .project-card { padding: 22px; }
-}
-
-/* Mobile cursor fallback */
-@media (hover: none) {
-  body { cursor: auto; }
-  #cursor, #cursor-ring { display: none; }
-}
-</style>
-</head>
-<body>
-
-<!-- CURSOR -->
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
-<!-- NAV -->
-<nav>
-  <a href="/" class="nav-wordmark">lyon<span>os</span>.dev</a>
-  <div class="nav-right">
-    <a href="#projects">Projects</a>
-    <a href="#about">About</a>
-    <a href="https://lythos.lyonos.dev" target="_blank">lythos ↗</a>
-    <a href="https://os.lyonos.dev" target="_blank">os ↗</a>
-  </div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<div class="nav-drawer" id="navDrawer">
-  <a href="#projects">Projects</a>
-  <a href="#about">About</a>
-  <a href="https://lythos.lyonos.dev" target="_blank">lythos.lyonos.dev ↗</a>
-  <a href="https://os.lyonos.dev" target="_blank">os.lyonos.dev ↗</a>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-bg-glow"></div>
-    <div class="hero-bg-glow2"></div>
-    <div class="hero-bg-type">LYON</div>
-  </div>
-
-  <div class="hero-inner">
-    <div class="hero-eyebrow">
-      <div class="hero-eyebrow-line"></div>
-      Systems programmer &amp; indie developer
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lyonos.dev</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #080807;
+        --bg2: #0d0d0b;
+        --surface: #111110;
+        --surface2: #181815;
+        --border: #252520;
+        --border2: #333330;
+        --text: #ddd9cc;
+        --text2: #7a7868;
+        --text3: #3a3830;
+        --lime: #c6f135;
+        --lime2: #9dc020;
+        --lime-dim: rgba(198, 241, 53, 0.07);
+        --red: #e8304a;
+        --amber: #e8a020;
+        --ice: #88ccee;
+        --mono: "Fragment Mono", monospace;
+        --display: "Bebas Neue", sans-serif;
+        --serif: "DM Serif Display", serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--mono);
+        font-size: 13px;
+        line-height: 1.6;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* CUSTOM CURSOR */
+      #cursor {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: var(--lime);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 10000;
+        transition:
+          transform 0.08s ease,
+          width 0.2s,
+          height 0.2s,
+          background 0.2s;
+        mix-blend-mode: difference;
+      }
+
+      #cursor-ring {
+        position: fixed;
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(198, 241, 53, 0.4);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+        transition:
+          transform 0.18s ease,
+          width 0.2s,
+          height 0.2s,
+          opacity 0.2s;
+      }
+
+      body:has(a:hover) #cursor {
+        width: 6px;
+        height: 6px;
+        background: var(--lime);
+      }
+      body:has(a:hover) #cursor-ring {
+        width: 52px;
+        height: 52px;
+        border-color: rgba(198, 241, 53, 0.7);
+      }
+
+      /* NOISE OVERLAY */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+        opacity: 0.028;
+        pointer-events: none;
+        z-index: 9998;
+      }
+
+      /* SCANLINES */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 3px,
+          rgba(0, 0, 0, 0.06) 3px,
+          rgba(0, 0, 0, 0.06) 4px
+        );
+        pointer-events: none;
+        z-index: 9997;
+      }
+
+      /* ─── NAV ─────────────────────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        height: 52px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(8, 8, 7, 0.9);
+        backdrop-filter: blur(16px);
+      }
+
+      .nav-wordmark {
+        font-family: var(--display);
+        font-size: 22px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .nav-wordmark span {
+        color: var(--lime);
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+
+      .nav-right a {
+        color: var(--text2);
+        text-decoration: none;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+
+      .nav-right a:hover {
+        color: var(--lime);
+      }
+
+      /* HAMBURGER */
+      .nav-hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 36px;
+        height: 36px;
+        background: none;
+        border: 1px solid var(--border2);
+        cursor: none;
+        padding: 8px;
+      }
+
+      .nav-hamburger span {
+        display: block;
+        height: 1.5px;
+        background: var(--text2);
+        transition: all 0.25s;
+        transform-origin: center;
+      }
+
+      .nav-hamburger.open span:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
+      }
+      .nav-hamburger.open span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .nav-hamburger.open span:nth-child(3) {
+        transform: translateY(-6.5px) rotate(-45deg);
+      }
+
+      .nav-drawer {
+        display: none;
+        position: fixed;
+        top: 52px;
+        left: 0;
+        right: 0;
+        background: rgba(8, 8, 7, 0.98);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        z-index: 499;
+        padding: 8px 0 16px;
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        transition:
+          opacity 0.22s ease,
+          transform 0.22s ease;
+      }
+
+      .nav-drawer.open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
+
+      .nav-drawer a {
+        display: block;
+        padding: 12px 24px;
+        color: var(--text2);
+        text-decoration: none;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--border);
+        transition:
+          color 0.15s,
+          background 0.15s;
+      }
+
+      .nav-drawer a:last-child {
+        border-bottom: none;
+      }
+      .nav-drawer a:hover {
+        color: var(--lime);
+        background: var(--surface);
+      }
+
+      /* ─── HERO ────────────────────────────────────────── */
+      .hero {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 52px 40px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* DIAGONAL GRID */
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .hero-bg-grid {
+        position: absolute;
+        inset: -50%;
+        width: 200%;
+        height: 200%;
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 60px 60px;
+        opacity: 0.25;
+        transform: rotate(-12deg);
+        mask-image: radial-gradient(
+          ellipse 70% 70% at 60% 40%,
+          black 20%,
+          transparent 80%
+        );
+      }
+
+      .hero-bg-glow {
+        position: absolute;
+        bottom: 0;
+        right: -10%;
+        width: 700px;
+        height: 500px;
+        background: radial-gradient(
+          ellipse at bottom right,
+          rgba(198, 241, 53, 0.05) 0%,
+          transparent 65%
+        );
+      }
+
+      .hero-bg-glow2 {
+        position: absolute;
+        top: 30%;
+        left: -5%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          ellipse,
+          rgba(136, 204, 238, 0.03) 0%,
+          transparent 70%
+        );
+      }
+
+      /* LARGE BACKGROUND TEXT */
+      .hero-bg-type {
+        position: absolute;
+        bottom: -0.12em;
+        left: -0.02em;
+        font-family: var(--display);
+        font-size: clamp(160px, 28vw, 340px);
+        line-height: 1;
+        color: transparent;
+        -webkit-text-stroke: 1px var(--border2);
+        white-space: nowrap;
+        pointer-events: none;
+        user-select: none;
+        letter-spacing: -0.02em;
+      }
+
+      /* HERO CONTENT */
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        padding-bottom: 0;
+      }
+
+      .hero-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--lime);
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: riseIn 0.5s 0.1s forwards;
+      }
+
+      .hero-eyebrow-line {
+        width: 32px;
+        height: 1px;
+        background: var(--lime);
+      }
+
+      .hero-name {
+        font-family: var(--display);
+        font-size: clamp(72px, 13vw, 180px);
+        line-height: 0.88;
+        letter-spacing: -0.01em;
+        margin-bottom: 8px;
+        opacity: 0;
+        animation: riseIn 0.6s 0.18s forwards;
+      }
+
+      .hero-name-accent {
+        color: var(--lime);
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 0.55em;
+        vertical-align: middle;
+        letter-spacing: 0;
+      }
+
+      .hero-domain {
+        font-size: clamp(14px, 2vw, 18px);
+        color: var(--text2);
+        letter-spacing: 0.06em;
+        margin-bottom: 48px;
+        opacity: 0;
+        animation: riseIn 0.6s 0.28s forwards;
+      }
+
+      .hero-domain span {
+        color: var(--lime);
+      }
+
+      /* TERMINAL LINE */
+      .hero-terminal {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: var(--text3);
+        margin-bottom: 64px;
+        opacity: 0;
+        animation: riseIn 0.5s 0.4s forwards;
+      }
+
+      .terminal-prompt {
+        color: var(--lime);
+      }
+      .terminal-text {
+        color: var(--text2);
+      }
+
+      .terminal-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 14px;
+        background: var(--lime);
+        animation: blink 1s step-end infinite;
+        vertical-align: middle;
+      }
+
+      /* HERO STATS BAR */
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-top: 1px solid var(--border);
+        opacity: 0;
+        animation: riseIn 0.5s 0.5s forwards;
+      }
+
+      .hero-stat {
+        padding: 20px 24px;
+        border-right: 1px solid var(--border);
+        position: relative;
+      }
+
+      .hero-stat:last-child {
+        border-right: none;
+      }
+
+      .hero-stat-num {
+        font-family: var(--display);
+        font-size: 32px;
+        color: var(--lime);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .hero-stat-label {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text3);
+      }
+
+      /* ─── PROJECTS ────────────────────────────────────── */
+      .projects {
+        padding: 120px 40px;
+        position: relative;
+      }
+
+      .projects-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 64px;
+        gap: 20px;
+      }
+
+      .projects-title {
+        font-family: var(--display);
+        font-size: clamp(48px, 7vw, 88px);
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+
+      .projects-title em {
+        font-family: var(--serif);
+        font-style: italic;
+        color: var(--text2);
+        font-size: 0.6em;
+      }
+
+      .projects-count {
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--text3);
+        white-space: nowrap;
+      }
+
+      /* PROJECT CARDS GRID */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+
+      /* PROJECT CARD */
+      .project-card {
+        background: var(--surface);
+        padding: 40px;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.25s;
+        min-height: 360px;
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          var(--lime-dim) 0%,
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.35s;
+      }
+
+      .project-card:hover {
+        background: var(--surface2);
+      }
+      .project-card:hover::before {
+        opacity: 1;
+      }
+
+      /* CARD CORNER ACCENT */
+      .project-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-top: 48px solid var(--border);
+        border-left: 48px solid transparent;
+        transition: border-top-color 0.25s;
+      }
+
+      .project-card:hover::after {
+        border-top-color: var(--lime-dim);
+      }
+
+      .card-index {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text3);
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .card-index::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+        max-width: 60px;
+      }
+
+      .card-label {
+        display: inline-block;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        border: 1px solid var(--border2);
+        padding: 3px 10px;
+        color: var(--text3);
+        margin-bottom: 16px;
+        transition:
+          border-color 0.25s,
+          color 0.25s;
+      }
+
+      .project-card:hover .card-label {
+        border-color: var(--lime);
+        color: var(--lime);
+      }
+
+      .card-title {
+        font-family: var(--display);
+        font-size: clamp(42px, 5.5vw, 72px);
+        line-height: 0.9;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        margin-bottom: 20px;
+        transition: color 0.25s;
+      }
+
+      .card-sub {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 15px;
+        color: var(--text2);
+        margin-bottom: auto;
+        line-height: 1.5;
+        padding-bottom: 28px;
+      }
+
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        margin-top: auto;
+      }
+
+      .card-url {
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        color: var(--text3);
+        transition: color 0.25s;
+      }
+
+      .project-card:hover .card-url {
+        color: var(--lime);
+      }
+
+      .card-arrow {
+        width: 36px;
+        height: 36px;
+        border: 1px solid var(--border2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text3);
+        font-size: 16px;
+        transition: all 0.25s;
+        flex-shrink: 0;
+      }
+
+      .project-card:hover .card-arrow {
+        border-color: var(--lime);
+        color: var(--lime);
+        transform: translate(2px, -2px);
+      }
+
+      /* CARD VARIANTS */
+      .card-lythos .card-title {
+      }
+      .card-lythos .card-label {
+        border-color: var(--border2);
+      }
+
+      .card-os .card-title {
+      }
+      .card-os .card-label {
+      }
+
+      /* CARD DECORATION - floating chars */
+      .card-deco {
+        position: absolute;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--border2);
+        user-select: none;
+        pointer-events: none;
+        transition: color 0.25s;
+        line-height: 1.4;
+      }
+
+      .project-card:hover .card-deco {
+        color: var(--border2);
+      }
+
+      .deco-br {
+        bottom: 60px;
+        right: 40px;
+        text-align: right;
+      }
+      .deco-tl {
+        top: 52px;
+        right: 40px;
+        text-align: right;
+        font-size: 10px;
+      }
+
+      /* ─── ABOUT STRIP ─────────────────────────────────── */
+      .about-strip {
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 64px 40px;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 80px;
+        align-items: start;
+        background: var(--bg2);
+      }
+
+      .about-label {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text3);
+        margin-bottom: 16px;
+      }
+
+      .about-heading {
+        font-family: var(--display);
+        font-size: clamp(32px, 4vw, 52px);
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+
+      .about-heading em {
+        font-family: var(--serif);
+        font-style: italic;
+        color: var(--lime);
+        font-size: 0.8em;
+      }
+
+      .about-body {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .about-p {
+        font-size: 13px;
+        color: var(--text2);
+        line-height: 1.85;
+      }
+
+      .about-p strong {
+        color: var(--text);
+        font-weight: 400;
+      }
+
+      .about-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .tag {
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border: 1px solid var(--border2);
+        color: var(--text3);
+        transition: all 0.2s;
+      }
+
+      .tag:hover {
+        border-color: var(--lime);
+        color: var(--lime);
+      }
+      .tag.active {
+        border-color: var(--lime);
+        color: var(--lime);
+        background: var(--lime-dim);
+      }
+
+      /* ─── MARQUEE ─────────────────────────────────────── */
+      .marquee-wrap {
+        overflow: hidden;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 0;
+        background: var(--surface);
+      }
+
+      .marquee-track {
+        display: flex;
+        gap: 0;
+        animation: marquee 28s linear infinite;
+        white-space: nowrap;
+        width: max-content;
+      }
+
+      .marquee-item {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 0 32px;
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--text3);
+      }
+
+      .marquee-dot {
+        width: 4px;
+        height: 4px;
+        background: var(--lime);
+        transform: rotate(45deg);
+        flex-shrink: 0;
+      }
+
+      /* ─── FOOTER ──────────────────────────────────────── */
+      footer {
+        padding: 48px 40px 32px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 32px;
+        background: var(--bg2);
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-left .wordmark {
+        font-family: var(--display);
+        font-size: 28px;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+
+      .footer-left .wordmark span {
+        color: var(--lime);
+      }
+
+      .footer-left p {
+        font-size: 11px;
+        color: var(--text3);
+        line-height: 1.7;
+        max-width: 280px;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-align: right;
+      }
+
+      .footer-links a {
+        font-size: 12px;
+        color: var(--text2);
+        text-decoration: none;
+        letter-spacing: 0.06em;
+        transition: color 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: var(--lime);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--border);
+        padding: 16px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg2);
+      }
+
+      .footer-bottom p {
+        font-size: 10px;
+        color: var(--text3);
+        letter-spacing: 0.08em;
+      }
+
+      /* ─── ANIMATIONS ──────────────────────────────────── */
+      @keyframes riseIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* GLITCH on hover of hero name */
+      .hero-name:hover {
+        animation: glitch 0.3s steps(2) forwards;
+      }
+
+      @keyframes glitch {
+        0% {
+          text-shadow:
+            2px 0 var(--red),
+            -2px 0 var(--ice);
+        }
+        20% {
+          text-shadow:
+            -2px 0 var(--red),
+            2px 0 var(--ice);
+          clip-path: inset(10% 0 80% 0);
+        }
+        40% {
+          text-shadow:
+            2px 0 var(--red),
+            -2px 0 var(--ice);
+          clip-path: inset(40% 0 50% 0);
+        }
+        60% {
+          text-shadow:
+            -3px 0 var(--lime),
+            3px 0 var(--red);
+          clip-path: inset(0);
+        }
+        80% {
+          text-shadow: none;
+        }
+        100% {
+          text-shadow: none;
+        }
+      }
+
+      /* ─── RESPONSIVE ──────────────────────────────────── */
+      @media (max-width: 768px) {
+        nav {
+          padding: 0 20px;
+        }
+        .nav-right {
+          display: none;
+        }
+        .nav-hamburger {
+          display: flex;
+        }
+        .nav-drawer {
+          display: block;
+        }
+
+        .hero {
+          padding: 52px 20px 0;
+        }
+        .hero-bg-type {
+          font-size: clamp(100px, 24vw, 160px);
+        }
+        .hero-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .hero-stat {
+          padding: 16px;
+        }
+        .hero-stat-num {
+          font-size: 24px;
+        }
+
+        .projects {
+          padding: 72px 20px;
+        }
+        .projects-header {
+          flex-direction: column;
+          gap: 8px;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        .project-card {
+          min-height: 280px;
+          padding: 28px;
+        }
+        .card-title {
+          font-size: clamp(48px, 12vw, 72px);
+        }
+
+        .about-strip {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding: 48px 20px;
+        }
+
+        footer {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 36px 20px 24px;
+        }
+        .footer-links {
+          text-align: left;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          gap: 6px;
+          padding: 14px 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-domain {
+          font-size: 13px;
+        }
+        .hero-terminal {
+          display: none;
+        }
+        .hero-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .projects {
+          padding: 56px 16px;
+        }
+        .project-card {
+          padding: 22px;
+        }
+      }
+
+      /* Mobile cursor fallback */
+      @media (hover: none) {
+        body {
+          cursor: auto;
+        }
+        #cursor,
+        #cursor-ring {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CURSOR -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- NAV -->
+    <nav>
+      <a href="/" class="nav-wordmark">lyon<span>os</span>.dev</a>
+      <div class="nav-right">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="https://lythos.lyonos.dev" target="_blank">lythos ↗</a>
+        <a href="https://os.lyonos.dev" target="_blank">os ↗</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="nav-drawer" id="navDrawer">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="https://lythos.lyonos.dev" target="_blank"
+        >lythos.lyonos.dev ↗</a
+      >
+      <a href="https://os.lyonos.dev" target="_blank">os.lyonos.dev ↗</a>
     </div>
 
-    <div class="hero-name">
-      LYON<span class="hero-name-accent">os</span>
-    </div>
-
-    <div class="hero-domain">
-      <span>lyonos</span>.dev — personal project space
-    </div>
-
-    <div class="hero-terminal">
-      <span class="terminal-prompt">~/lyonos $</span>
-      <span class="terminal-text">Welcome to the club!/span>
-      <span class="terminal-cursor"></span>
-    </div>
-  </div>
-
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-num">Rust</div>
-      <div class="hero-stat-label">Primary lang</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">Ω</div>
-      <div class="hero-stat-label">Active game dev</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">μK</div>
-      <div class="hero-stat-label">Microkernel work</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">Nix</div>
-      <div class="hero-stat-label">System config</div>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <!-- first set -->
-    <div class="marquee-item"><div class="marquee-dot"></div>Rust</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Bevy</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>LDtk</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>NixOS</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Lythos Kernel</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Metroidvania</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Odin</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Zig</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>musl libc</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Btrfs</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Capability Security</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Indie Gamedev</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Systems Programming</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Nim</div>
-    <!-- duplicate for seamless loop -->
-    <div class="marquee-item"><div class="marquee-dot"></div>Rust</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Bevy</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>LDtk</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>NixOS</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Lythos Kernel</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Metroidvania</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Odin</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Zig</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>musl libc</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Btrfs</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Capability Security</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Indie Gamedev</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Systems Programming</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>Nim</div>
-  </div>
-</div>
-
-<!-- PROJECTS -->
-<section class="projects" id="projects">
-  <div class="projects-header">
-    <h2 class="projects-title">
-      Active<br><em>Projects</em>
-    </h2>
-    <div class="projects-count">02 subdomains</div>
-  </div>
-
-  <div class="projects-grid">
-
-    <!-- LYTHOS / RAPTOROS -->
-    <a href="https://lythos.lyonos.dev" target="_blank" class="project-card card-lythos">
-      <div class="card-deco deco-tl">
-        lythos.lyonos.dev<br>
-        kernel · rev 2.0
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-bg-glow"></div>
+        <div class="hero-bg-glow2"></div>
+        <div class="hero-bg-type">LYON</div>
       </div>
 
-      <div class="card-index">01</div>
-      <div class="card-label">Microkernel OS</div>
-      <div class="card-title">LYTHOS</div>
-      <div class="card-sub">
-        RaptorOS — a capability-secure microkernel built in Rust. Unforgeable capability tokens, atomic Btrfs rollbacks, a content-addressed store. All drivers in userspace.
+      <div class="hero-inner">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-line"></div>
+          Systems programmer &amp; indie developer
+        </div>
+
+        <div class="hero-name">
+          LYON<span class="hero-name-accent">os</span>
+        </div>
+
+        <div class="hero-domain">
+          <span>lyonos</span>.dev — personal project space
+        </div>
+
+        <div class="hero-terminal">
+          <span class="terminal-prompt">~/lyonos $</span>
+          <span class="terminal-text">Welcome to the club!</span>
+          <span class="terminal-cursor"></span>
+        </div>
       </div>
 
-      <div class="card-deco deco-br">
-        lythd · lythdist · lythmsg<br>
-        rpkg · lysh
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">Rust</div>
+          <div class="hero-stat-label">Primary lang</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">Ω</div>
+          <div class="hero-stat-label">Active game dev</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">μK</div>
+          <div class="hero-stat-label">Microkernel work</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">Nix</div>
+          <div class="hero-stat-label">System config</div>
+        </div>
       </div>
+    </section>
 
-      <div class="card-footer">
-        <span class="card-url">lythos.lyonos.dev</span>
-        <div class="card-arrow">↗</div>
+    <!-- MARQUEE -->
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <!-- first set -->
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Rust
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Bevy
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          LDtk
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          NixOS
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Lythos Kernel
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Metroidvania
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Odin
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Zig
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          musl libc
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Btrfs
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Capability Security
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Indie Gamedev
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Systems Programming
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Nim
+        </div>
+        <!-- duplicate for seamless loop -->
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Rust
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Bevy
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          LDtk
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          NixOS
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Lythos Kernel
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Metroidvania
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Odin
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Zig
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          musl libc
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Btrfs
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Capability Security
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Indie Gamedev
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Systems Programming
+        </div>
+        <div class="marquee-item">
+          <div class="marquee-dot"></div>
+          Nim
+        </div>
       </div>
-    </a>
-
-    <!-- LYONOS FLAKE -->
-    <a href="https://os.lyonos.dev" target="_blank" class="project-card card-os">
-      <div class="card-deco deco-tl">
-        os.lyonos.dev<br>
-        nixos · flake
-      </div>
-
-      <div class="card-index">02</div>
-      <div class="card-label">NixOS Config</div>
-      <div class="card-title">LYONOS</div>
-      <div class="card-sub">
-        Personal NixOS flake — declarative system configuration, reproducible environments, and the daily driver setup powering everything else here.
-      </div>
-
-      <div class="card-deco deco-br">
-        flake.nix · home-manager<br>
-        declarative · reproducible
-      </div>
-
-      <div class="card-footer">
-        <span class="card-url">os.lyonos.dev</span>
-        <div class="card-arrow">↗</div>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about-strip" id="about">
-  <div>
-    <div class="about-label">About</div>
-    <h2 class="about-heading">Solo dev,<br>systems<br><em>first</em></h2>
-  </div>
-  <div class="about-body">
-    <p class="about-p">
-      <strong>Lyon</strong> — indie game developer and daily programmer with a deep focus on systems languages and low-level work. Currently building <strong>Ω (Omega)</strong>, a narrative-driven Metroidvania in Rust + Bevy + LDtk, alongside kernel and OS experiments.
-    </p>
-    <p class="about-p">
-      Prefers learning by doing. Picks up languages hands-on — Rust is home base, but Zig, Odin, Nim, and Python all have their place. Drawn to things that are fast, correct, and close to the metal.
-    </p>
-    <div class="about-tags">
-      <span class="tag active">Rust</span>
-      <span class="tag active">Bevy</span>
-      <span class="tag">Zig</span>
-      <span class="tag">Odin</span>
-      <span class="tag">Nim</span>
-      <span class="tag">Python</span>
-      <span class="tag active">NixOS</span>
-      <span class="tag">Zed</span>
-      <span class="tag">LDtk</span>
     </div>
-  </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-left">
-    <div class="wordmark">lyon<span>os</span>.dev</div>
-    <p>Personal project space. Microkernel OS work, NixOS configs, indie game development, and whatever else is interesting right now.</p>
-  </div>
-  <div class="footer-links">
-    <a href="https://lythos.lyonos.dev" target="_blank">lythos.lyonos.dev ↗</a>
-    <a href="https://os.lyonos.dev" target="_blank">os.lyonos.dev ↗</a>
-  </div>
-</footer>
-<div class="footer-bottom">
-  <p>lyonos.dev</p>
-  <p>Rust · NixOS · Bevy · systems all the way down</p>
-</div>
+    <!-- PROJECTS -->
+    <section class="projects" id="projects">
+      <div class="projects-header">
+        <h2 class="projects-title">Active<br /><em>Projects</em></h2>
+        <div class="projects-count">02 subdomains</div>
+      </div>
 
-<script>
-  // Custom cursor
-  const cur = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+      <div class="projects-grid">
+        <!-- LYTHOS / RAPTOROS -->
+        <a
+          href="https://lythos.lyonos.dev"
+          target="_blank"
+          class="project-card card-lythos"
+        >
+          <div class="card-deco deco-tl">
+            lythos.lyonos.dev<br />
+            kernel · rev 2.0
+          </div>
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cur.style.left = mx + 'px';
-    cur.style.top  = my + 'px';
-  });
+          <div class="card-index">01</div>
+          <div class="card-label">Microkernel OS</div>
+          <div class="card-title">LYTHOS</div>
+          <div class="card-sub">
+            RaptorOS — a capability-secure microkernel built in Rust.
+            Unforgeable capability tokens, atomic Btrfs rollbacks, a
+            content-addressed store. All drivers in userspace.
+          </div>
 
-  function animRing() {
-    rx += (mx - rx) * 0.14;
-    ry += (my - ry) * 0.14;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
+          <div class="card-deco deco-br">
+            lythd · lythdist · lythmsg<br />
+            rpkg · lysh
+          </div>
 
-  // Hamburger
-  const btn    = document.getElementById('hamburger');
-  const drawer = document.getElementById('navDrawer');
-  btn.addEventListener('click', () => {
-    btn.classList.toggle('open');
-    drawer.classList.toggle('open');
-  });
-  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    btn.classList.remove('open');
-    drawer.classList.remove('open');
-  }));
+          <div class="card-footer">
+            <span class="card-url">lythos.lyonos.dev</span>
+            <div class="card-arrow">↗</div>
+          </div>
+        </a>
 
-  // Glitch text on hero name - random intervals
-  const heroName = document.querySelector('.hero-name');
-  setInterval(() => {
-    heroName.style.animation = 'none';
-    heroName.offsetHeight; // reflow
-    heroName.style.animation = 'glitch 0.25s steps(2)';
-  }, 7000 + Math.random() * 5000);
-</script>
-</body>
+        <!-- LYONOS FLAKE -->
+        <a
+          href="https://os.lyonos.dev"
+          target="_blank"
+          class="project-card card-os"
+        >
+          <div class="card-deco deco-tl">
+            os.lyonos.dev<br />
+            nixos · flake
+          </div>
+
+          <div class="card-index">02</div>
+          <div class="card-label">NixOS Config</div>
+          <div class="card-title">LYONOS</div>
+          <div class="card-sub">
+            Personal NixOS flake — declarative system configuration,
+            reproducible environments, and the daily driver setup powering
+            everything else here.
+          </div>
+
+          <div class="card-deco deco-br">
+            flake.nix · home-manager<br />
+            declarative · reproducible
+          </div>
+
+          <div class="card-footer">
+            <span class="card-url">os.lyonos.dev</span>
+            <div class="card-arrow">↗</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about-strip" id="about">
+      <div>
+        <div class="about-label">About</div>
+        <h2 class="about-heading">
+          Solo dev,<br />systems<br /><em>first</em>
+        </h2>
+      </div>
+      <div class="about-body">
+        <p class="about-p">
+          <strong>Lyon</strong> — indie game developer and daily programmer with
+          a deep focus on systems languages and low-level work. Currently
+          building <strong>Ω (Omega)</strong>, a narrative-driven Metroidvania
+          in Rust + Bevy + LDtk, alongside kernel and OS experiments.
+        </p>
+        <p class="about-p">
+          Prefers learning by doing. Picks up languages hands-on — Rust is home
+          base, but Zig, Odin, Nim, and Python all have their place. Drawn to
+          things that are fast, correct, and close to the metal.
+        </p>
+        <div class="about-tags">
+          <span class="tag active">Rust</span>
+          <span class="tag active">Bevy</span>
+          <span class="tag">Zig</span>
+          <span class="tag">Odin</span>
+          <span class="tag">Nim</span>
+          <span class="tag">Python</span>
+          <span class="tag active">NixOS</span>
+          <span class="tag">Zed</span>
+          <span class="tag">LDtk</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-left">
+        <div class="wordmark">lyon<span>os</span>.dev</div>
+        <p>
+          Personal project space. Microkernel OS work, NixOS configs, indie game
+          development, and whatever else is interesting right now.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="https://lythos.lyonos.dev" target="_blank"
+          >lythos.lyonos.dev ↗</a
+        >
+        <a href="https://os.lyonos.dev" target="_blank">os.lyonos.dev ↗</a>
+      </div>
+    </footer>
+    <div class="footer-bottom">
+      <p>lyonos.dev</p>
+      <p>Rust · NixOS · Bevy · systems all the way down</p>
+    </div>
+
+    <script>
+      // Custom cursor
+      const cur = document.getElementById("cursor");
+      const ring = document.getElementById("cursor-ring");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        cur.style.left = mx + "px";
+        cur.style.top = my + "px";
+      });
+
+      function animRing() {
+        rx += (mx - rx) * 0.14;
+        ry += (my - ry) * 0.14;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(animRing);
+      }
+      animRing();
+
+      // Hamburger
+      const btn = document.getElementById("hamburger");
+      const drawer = document.getElementById("navDrawer");
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("open");
+        drawer.classList.toggle("open");
+      });
+      drawer.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => {
+          btn.classList.remove("open");
+          drawer.classList.remove("open");
+        }),
+      );
+
+      // Glitch text on hero name - random intervals
+      const heroName = document.querySelector(".hero-name");
+      setInterval(
+        () => {
+          heroName.style.animation = "none";
+          heroName.offsetHeight; // reflow
+          heroName.style.animation = "glitch 0.25s steps(2)";
+        },
+        7000 + Math.random() * 5000,
+      );
+    </script>
+  </body>
 </html>
